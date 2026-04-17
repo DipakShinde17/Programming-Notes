@@ -1,0 +1,28 @@
+'''Dr. Smith lives in the U.S. and works at New York University. 
+He specializes in A.I. and has published over 3.14 papers every year. 
+He often travels to Washington D.C. for conferences, workshops, etc. 
+Recently, he received an award from the A.I. Society.'''
+
+
+
+ "Hello! Are you coming?"
+
+"eating", "eats", "ate", "adjustable", "rafting", "ability", "meeting","better"
+
+
+
+
+
+
+"We have just launches the wings, the flying part is coming soon"
+
+
+
+"Tesla Inc has acquired Twitter Inc"
+
+
+
+
+
+
+
