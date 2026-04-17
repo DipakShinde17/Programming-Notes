@@ -1,0 +1,27 @@
+create procedure cr_proc(d int)
+begin
+   declare id,sal int;
+   declare is_stop int default 0 ;
+   declare cr1 cursor for select eid,salary from emp where dno = d;
+
+    declare continue handler for not found set is_stop = 1;
+open cr1;
+   myloop:loop
+   fetch cr1 into id sal; 
+   if(is_stop = 1) then
+      update emp set salary = salary * 1.10 where eid = id;
+   else
+      update emp set salary = salary * 1.20 where eid = id;
+   end if;
+   end loop myloop;
+close cr1;
+end
+
+
+
+
+
+#----------->  in this code have error: 
+                                             ERROR 1064 (42000): You have an error in your SQL syntax; check the 					     manual that corresponds to your MySQL server version for the right 					     syntax to use near 'sal;
+   					     if(is_stop = 1) then
+      					     update emp set salary = salary * 1.10 where ' at line 10 

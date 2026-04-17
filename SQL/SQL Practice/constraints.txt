@@ -1,0 +1,136 @@
+word: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 67
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> alter table student
+    -> add primary key(rollno);
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| demo               |
+| fbs                |
+| information_schema |
+| julyaug            |
+| mysql              |
+| performance_schema |
+| practice           |
+| student            |
+| sys                |
++--------------------+
+9 rows in set (0.07 sec)
+
+mysql> use julyaug;
+Database changed
+mysql> desc julyaug;
+ERROR 1146 (42S02): Table 'julyaug.julyaug' doesn't exist
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| employee          |
+| room              |
++-------------------+
+2 rows in set (0.01 sec)
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | YES  |     | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(5)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> alter table employee
+    -> add primary key(eid);
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | NO   | PRI | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(5)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee(eid,name)values(101,'dipak');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table employee;
++-----+-------+--------+--------+
+| eid | name  | salary | gender |
++-----+-------+--------+--------+
+| 101 | dipak |   NULL | NULL   |
++-----+-------+--------+--------+
+1 row in set (0.02 sec)
+
+mysql> alter table employee
+    -> add column email_id varchar(20
+    ->
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++-----+-------+--------+--------+----------+
+| eid | name  | salary | gender | email_id |
++-----+-------+--------+--------+----------+
+| 101 | dipak |   NULL | NULL   | NULL     |
++-----+-------+--------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column email_id varchar(20) unique;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++-----+-------+--------+--------+----------+
+| eid | name  | salary | gender | email_id |
++-----+-------+--------+--------+----------+
+| 101 | dipak |   NULL | NULL   | NULL     |
++-----+-------+--------+--------+----------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> insert into employee (email_id) values('dipak@112');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into employee (email_id) values('dipak@112')' at line 2
+mysql> insert into employee (email_id) values('dipak@112');
+ERROR 1364 (HY000): Field 'eid' doesn't have a default value
+mysql> insert into employee(eid,name,email_id)values(102,'ajikya','ajiky@123');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table employee;
++-----+--------+--------+--------+-----------+
+| eid | name   | salary | gender | email_id  |
++-----+--------+--------+--------+-----------+
+| 101 | dipak  |   NULL | NULL   | NULL      |
+| 102 | ajikya |   NULL | NULL   | ajiky@123 |
++-----+--------+--------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column email_id varchar(20) unique;
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> insert into employee(eid,name,email_id)values(103,'siddeshwar','ajiky@123');
+ERROR 1062 (23000): Duplicate entry 'ajiky@123' for key 'employee.email_id'
+mysql>

@@ -1,0 +1,182 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 33
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| book               |
+| branch             |
+| customer           |
+| dept               |
+| emp                |
+| employees          |
+| info               |
+| issue              |
+| member             |
+| member101          |
+| order1             |
+| student            |
++--------------------+
+12 rows in set (0.06 sec)
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani | NULL |
+| 102 | siddeshwar |  34000 | nanded   | NULL |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
++-----+------------+--------+----------+------+
+4 rows in set (0.03 sec)
+
+mysql> (select name,salary from emp order by salary limit 1)
+    -> union
+    -> (select name,salary from emp order by salary desc limit 1);
++--------+--------+
+| name   | salary |
++--------+--------+
+| dipak  |  23000 |
+| dipali |  56000 |
++--------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select distinct salary from emp;
++--------+
+| salary |
++--------+
+|  23000 |
+|  34000 |
+|  56000 |
++--------+
+3 rows in set (0.02 sec)
+
+mysql> select salary distinct from emp;;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct from emp' at line 1
+ERROR:
+No query specified
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'practice.employee' doesn't exist
+mysql> desc employees;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| employee_id   | int          | YES  |     | NULL    |       |
+| first_name    | varchar(10)  | YES  |     | NULL    |       |
+| last_name     | varchar(10)  | YES  |     | NULL    |       |
+| email         | varchar(25)  | YES  |     | NULL    |       |
+| phone_no      | bigint       | YES  |     | NULL    |       |
+| hire_date     | date         | YES  |     | NULL    |       |
+| job_id        | int          | YES  |     | NULL    |       |
+| salary        | decimal(7,2) | YES  |     | NULL    |       |
+| commission    | decimal(7,2) | YES  |     | NULL    |       |
+| manager_id    | int          | YES  |     | NULL    |       |
+| department_id | int          | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+11 rows in set (0.10 sec)
+
+mysql> select * from employees;
+Empty set (0.09 sec)
+
+mysql> alter table employees
+    -> add auto_increment employee_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee_id' at line 2
+mysql> add auto_increment (employee_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add auto_increment (employee_id)' at line 1
+mysql> alter table employees
+    -> modify column employee_id int auto_increment;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> alter table employees
+    -> modify column employee_id int auto_increment;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> alter table employees
+    -> add primary key (employee_id);
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employees
+    -> modify column employee_id int auto_increment;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into (first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values
+    -> ("steven","king","sking",515.132.4567,"1987-06-17","AD_PRES",24000,0,200,10),
+    -> ("neena","kochhar","nkochhar",515.123.4568"1987-06-18","AD_VP",17000,0,200,10),
+    -> ("lex","de haan","ldehaan",515.123.4569"1987-06-19","AD_VP",17000,0,200,10),
+    -> ("alexander","hunold","ahunold",590.423.4569"1987-06-20","IT_PROG",90000,0,103,60),
+    -> ("alexander","hunold","ahunold",590.423.4569"1987-06-20","IT_PROG",90000,0,103,60);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_' at line 1
+
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> insert into employees (first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values("steven","king","sking",515.132.4567,"1987-06-17","AD_PRES",24000,0,200,10),
+    ->     -> ("neena","kochhar","nkochhar",515.123.4568"1987-06-18","AD_VP",17000,0,200,10),
+    ->     -> ("lex","de haan","ldehaan",515.123.4569"1987-06-19","AD_VP",17000,0,200,10),
+    ->     -> ("alexander","hunold","ahunold",590.423.4569"1987-06-20","IT_PROG",90000,0,103,60),
+    ->     -> ("alexander","hunold","ahunold",590.423.4569"1987-06-20","IT_PROG",90000,0,103,60);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.4567,"1987-06-17","AD_PRES",24000,0,200,10),
+    -> ("neena","kochhar","nkochha' at line 1
+mysql> insert into employees (first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values("steven","king","sking",515.132.4567,"1987-06-17","AD_PRES",24000,0,200,10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.4567,"1987-06-17","AD_PRES",24000,0,200,10)' at line 1
+mysql> insert into employees (first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values("steven","king","sking",5151324567,"1987-06-17","AD_PRES",24000,0,200,10);
+ERROR 1366 (HY000): Incorrect integer value: 'AD_PRES' for column 'job_id' at row 1
+mysql> insert into employees (first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values("steven","king","sking",5151324567,"1987-06-17","AD_PRES",24000,0,200,10);
+ERROR 1366 (HY000): Incorrect integer value: 'AD_PRES' for column 'job_id' at row 1
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'practice.employee' doesn't exist
+mysql> desc employees;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| employee_id   | int          | NO   | PRI | NULL    | auto_increment |
+| first_name    | varchar(10)  | YES  |     | NULL    |                |
+| last_name     | varchar(10)  | YES  |     | NULL    |                |
+| email         | varchar(25)  | YES  |     | NULL    |                |
+| phone_no      | bigint       | YES  |     | NULL    |                |
+| hire_date     | date         | YES  |     | NULL    |                |
+| job_id        | int          | YES  |     | NULL    |                |
+| salary        | decimal(7,2) | YES  |     | NULL    |                |
+| commission    | decimal(7,2) | YES  |     | NULL    |                |
+| manager_id    | int          | YES  |     | NULL    |                |
+| department_id | int          | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.03 sec)
+
+mysql> alter table employees
+    -> modify column job_id varchar(10);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| employee_id   | int          | NO   | PRI | NULL    | auto_increment |
+| first_name    | varchar(10)  | YES  |     | NULL    |                |
+| last_name     | varchar(10)  | YES  |     | NULL    |                |
+| email         | varchar(25)  | YES  |     | NULL    |                |
+| phone_no      | bigint       | YES  |     | NULL    |                |
+| hire_date     | date         | YES  |     | NULL    |                |
+| job_id        | varchar(10)  | YES  |     | NULL    |                |
+| salary        | decimal(7,2) | YES  |     | NULL    |                |
+| commission    | decimal(7,2) | YES  |     | NULL    |                |
+| manager_id    | int          | YES  |     | NULL    |                |
+| department_id | int          | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec)
+
+mysql>

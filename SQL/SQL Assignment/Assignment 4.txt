@@ -1,0 +1,536 @@
+Q1) write a query to display the names (first_name as First_Name and last_name as Last_Name)using alias.
+
+
+
+
+mysql> select first_name as First_Name,last_name as Last_Name from employees;
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| steven     | king      |
+| neena      | kochher   |
+| lex        | De haan   |
+| alexander  | hunold    |
+| bruce      | ernst     |
+| david      | austin    |
+| valli      | pataballa |
+| diana      | lorentz   |
+| nancy      | greenberg |
+| daniel     | faviet    |
++------------+-----------+
+
+
+
+Q2) write a query to select unique department id from employee table.
+
+mysql> select distinct department_id from employees;
++---------------+
+| department_id |
++---------------+
+|            10 |
+|            60 |
+|            30 |
+|            80 |
++---------------+
+4 rows in set (0.03 sec)
+
+
+
+
+
+Q3) write a query to get all employee details from the employee table order by first name descending.
+
+
+mysql> select * from employees order by
+    -> first_name desc;
++-------------+------------+-----------+-----------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email     | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+-----------+------------+------------+----------+----------+------------+------------+---------------+
+|         106 | valli      | pataballa | vpatabala | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         100 | steven     | king      | sking     | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.00 |        200 |            10 |
+|         101 | neena      | kochher   | nkochher  | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         108 | nancy      | greenberg | ngreenbe  | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.00 |        145 |            80 |
+|         102 | lex        | De haan   | ldehaan   | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         107 | diana      | lorentz   | dlorentz  | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.00 |        114 |            30 |
+|         105 | david      | austin    | daustin   | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         109 | daniel     | faviet    | dfaviet   | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.00 |        145 |            80 |
+|         104 | bruce      | ernst     | bernst    | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.00 |        103 |            60 |
+|         103 | alexander  | hunold    | ahunold   | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.00 |        103 |            60 |
++-------------+------------+--------
+
+
+
+
+Q4) Write the query the name(first_name,last_name) ,salary,PF,of all the employee(PF is calculated 15% of salary).
+
+
+mysql> SELECT first_name,last_name,salary ,salary*0.15 as "PF" FROM employees;
++------------+-----------+----------+------------+
+| first_name | last_name | salary   | PF         |
++------------+-----------+----------+------------+
+| steven     | king      | 24000.00 |  3600.0000 |
+| neena      | kochher   | 17000.00 |  2550.0000 |
+| lex        | De haan   | 17000.00 |  2550.0000 |
+| alexander  | hunold    | 90000.00 | 13500.0000 |
+| bruce      | ernst     | 60000.00 |  9000.0000 |
+| david      | austin    |  4800.00 |   720.0000 |
+| valli      | pataballa |  4800.00 |   720.0000 |
+| diana      | lorentz   |  4200.00 |   630.0000 |
+| nancy      | greenberg | 12000.00 |  1800.0000 |
+| daniel     | faviet    |  9000.00 |  1350.0000 |
++------------+-----------+----------+------------+
+10 rows in set (0.01 sec)
+
+
+Q5) Write a query to get the employee ID, names (first_name, last_name),
+salary in ascending order of salary.
+
+
+
+mysql> SELECT employee_id first_name,last_name,salary from employees order by salary;
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+|        107 | lorentz   |  4200.00 |
+|        105 | austin    |  4800.00 |
+|        106 | pataballa |  4800.00 |
+|        109 | faviet    |  9000.00 |
+|        108 | greenberg | 12000.00 |
+|        101 | kochher   | 17000.00 |
+|        102 | De haan   | 17000.00 |
+|        100 | king      | 24000.00 |
+|        104 | ernst     | 60000.00 |
+|        103 | hunold    | 90000.00 |
++------------+-----------+----------+
+10 rows in set (0.01 sec)
+
+
+
+
+
+6. Write a query to get the total salaries payable to employees.
+
+
+
+
+
+mysql> select * from employees;
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | NOT AVAILABLE | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.10 |        200 |            10 |
+|         101 | neena      | kochher   | NOT AVAILABLE | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.10 |        200 |            10 |
+|         102 | lex        | De haan   | NOT AVAILABLE | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.10 |        200 |            10 |
+|         103 | alexander  | hunold    | NOT AVAILABLE | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.10 |        103 |            60 |
+|         104 | bruce      | ernst     | NOT AVAILABLE | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.10 |        103 |            60 |
+|         105 | david      | austin    | NOT AVAILABLE | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.10 |        103 |            60 |
+|         106 | valli      | pataballa | NOT AVAILABLE | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.10 |        103 |            60 |
+|         107 | diana      | lorentz   | NOT AVAILABLE | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.10 |        114 |            30 |
+|         108 | nancy      | greenberg | NOT AVAILABLE | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.10 |        145 |            80 |
+|         109 | daniel     | faviet    | NOT AVAILABLE | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.10 |        145 |            80 |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT SUM(salary) AS total_salaries
+    -> FROM employees;
++----------------+
+| total_salaries |
++----------------+
+|      242800.00 |
++----------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7. Write a query to get the maximum and minimum salary from employees
+table.
+
+
+
+
+mysql> (SELECT "max_salary" AS Salary_type,salary FROM employees ORDER BY salary DESC LIMIT 1)
+    -> UNION ALL
+    -> (SELECT "min_salary" AS Salary_type,salary FROM employees ORDER BY salary LIMIT 1);
++-------------+----------+
+| Salary_type | salary   |
++-------------+----------+
+| max_salary  | 90000.00 |
+| min_salary  |  4200.00 |
++-------------+----------+
+
+
+
+
+8. Write a query to get the average salary and number of employees in the
+employees table.
+
+
+mysql> SELECT AVG(salary) AS avg_salaries
+    -> FROM employees;
++--------------+
+| avg_salaries |
++--------------+
+| 24280.000000 |
++--------------+
+
+
+
+
+
+
+9. Write a query to get the number of employees working with the
+company.
+
+
+mysql> SELECT employee_id, first_name,last_name FROM employees;
++-------------+------------+-----------+
+| employee_id | first_name | last_name |
++-------------+------------+-----------+
+|         100 | steven     | king      |
+|         101 | neena      | kochher   |
+|         102 | lex        | De haan   |
+|         103 | alexander  | hunold    |
+|         104 | bruce      | ernst     |
+|         105 | david      | austin    |
+|         106 | valli      | pataballa |
+|         107 | diana      | lorentz   |
+|         108 | nancy      | greenberg |
+|         109 | daniel     | faviet    |
++-------------+------------+-----------+
+10 rows in set (0.00 sec)
+
+
+
+
+10.Write a query to get the number of jobs available in the employees table.
+
+
+
+mysql> SELECT job_id from employees;
++----------+
+| job_id   |
++----------+
+| AD_PRESS |
+| AD_VP    |
+| AD_VP    |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| SA_MAN   |
+| SA_MAN   |
++----------+
+10 rows in set (0.00 sec)
+
+
+
+11.Write a query to select first 10 records from a table.
+
+
+mysql> SELECT * FROM employees WHERE employee_id >=9;
++-------------+------------+-----------+-----------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email     | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+-----------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | sking     | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.00 |        200 |            10 |
+|         101 | neena      | kochher   | nkochher  | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         102 | lex        | De haan   | ldehaan   | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         103 | alexander  | hunold    | ahunold   | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.00 |        103 |            60 |
+|         104 | bruce      | ernst     | bernst    | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.00 |        103 |            60 |
+|         105 | david      | austin    | daustin   | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         106 | valli      | pataballa | vpatabala | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         107 | diana      | lorentz   | dlorentz  | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.00 |        114 |            30 |
+|         108 | nancy      | greenberg | ngreenbe  | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.00 |        145 |            80 |
+|         109 | daniel     | faviet    | dfaviet   | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.00 |        145 |            80 |
++-------------+------------+-----------+-----------+------------+------------+----------+----------+------------+------------+---------------+
+10 rows in set (0.03 sec)
+
+
+
+
+12.Write a query to display the name (first_name, last_name) and salary for
+all employees whose salary is not in the range $10,000 through $15,000.
+
+
+
+
+mysql> SELECT first_name,last_name,salary FROM employees WHERE salary not in (10000,15000);
++------------+-----------+----------+
+| first_name | last_name | salary   |
++------------+-----------+----------+
+| steven     | king      | 24000.00 |
+| neena      | kochher   | 17000.00 |
+| lex        | De haan   | 17000.00 |
+| alexander  | hunold    | 90000.00 |
+| bruce      | ernst     | 60000.00 |
+| david      | austin    |  4800.00 |
+| valli      | pataballa |  4800.00 |
+| diana      | lorentz   |  4200.00 |
+| nancy      | greenberg | 12000.00 |
+| daniel     | faviet    |  9000.00 |
++------------+-----------+----------+
+10 rows in set (0.03 sec)
+
+
+
+
+13.Write a query to display the name (first_name, last_name) and
+department ID of all employees in departments 30 or 100 in ascending
+order.
+
+
+
+mysql> SELECT first_name,last_name,department_id FROM employees ORDER BY department_id IN (30,100);
++------------+-----------+---------------+
+| first_name | last_name | department_id |
++------------+-----------+---------------+
+| steven     | king      |            10 |
+| neena      | kochher   |            10 |
+| lex        | De haan   |            10 |
+| alexander  | hunold    |            60 |
+| bruce      | ernst     |            60 |
+| david      | austin    |            60 |
+| valli      | pataballa |            60 |
+| nancy      | greenberg |            80 |
+| daniel     | faviet    |            80 |
+| diana      | lorentz   |            30 |
++------------+-----------+---------------+
+
+
+
+
+14.Write a query to display the name (first_name, last_name) and salary for
+all employees whose salary is not in the range $10,000 through $15,000
+and are in department 30 or 100.
+
+
+
+mysql> SELECT first_name,last_name,salary FROM employees WHERE salary not in (10000,15000) and department_id in(30,100);
++------------+-----------+---------+
+| first_name | last_name | salary  |
++------------+-----------+---------+
+| diana      | lorentz   | 4200.00 |
++------------+-----------+---------+
+1 row in set (0.02 sec)
+
+
+
+
+
+15.Write a query to display the name (first_name, last_name) and hire date
+for all employees who were hired in 1987.
+
+
+mysql> SELECT first_name,last_name,hire_date FROM employees where hire_date between "1987-01-01" and "1987-12-31";
++------------+-----------+------------+
+| first_name | last_name | hire_date  |
++------------+-----------+------------+
+| steven     | king      | 1987-06-17 |
+| neena      | kochher   | 1987-06-18 |
+| lex        | De haan   | 1987-06-18 |
+| alexander  | hunold    | 1987-06-20 |
+| bruce      | ernst     | 1987-06-21 |
+| david      | austin    | 1987-06-22 |
+| valli      | pataballa | 1987-06-23 |
+| diana      | lorentz   | 1987-06-24 |
+| nancy      | greenberg | 1987-06-25 |
+| daniel     | faviet    | 1987-06-26 |
++------------+-----------+------------+
+10 rows in set (0.03 sec)
+
+
+
+
+16.Write a query to display the first_name of all employees who have both
+"b" and "c" in their first name.
+
+
+mysql> SELECT first_name FROM employees where first_name like "%bc%";
+Empty set (0.00 sec)
+
+
+
+
+
+
+17.Write a query to display the last name, job, and salary for all employees
+whose job is that of a Programmer or a Shipping Clerk, and whose salary
+is not equal to $4,500, $10,000, or $15,000.
+
+
+
+mysql> SELECT last_name,job_id,salary FROM employees WHERE job_id in ("IT_PROG","SA_MAN") and salary not in (10000,15000);
++-----------+---------+----------+
+| last_name | job_id  | salary   |
++-----------+---------+----------+
+| hunold    | IT_PROG | 90000.00 |
+| ernst     | IT_PROG | 60000.00 |
+| austin    | IT_PROG |  4800.00 |
+| pataballa | IT_PROG |  4800.00 |
+| lorentz   | IT_PROG |  4200.00 |
+| greenberg | SA_MAN  | 12000.00 |
+| faviet    | SA_MAN  |  9000.00 |
++-----------+---------+----------+
+7 rows in set (0.00 sec)
+
+
+
+
+18.Write a query to display the last name of employees whose names have
+exactly 6 characters.
+
+
+
+mysql> SELECT last_name FROM employees where last_name like "______";
++-----------+
+| last_name |
++-----------+
+| hunold    |
+| austin    |
+| faviet    |
++-----------+
+3 rows in set (0.00 sec)
+
+
+
+
+19.Write a query to display the last name of employees having 'e' as the third
+character.
+
+
+mysql> SELECT last_name FROM employees WHERE last_name LIKE "___e%";
++-----------+
+| last_name |
++-----------+
+| lorentz   |
+| greenberg |
++-----------+
+
+
+
+
+20.Write a query to display the jobs/designations available in the employees
+table.
+
+
+
+mysql> SELECT job_id FROM employees;
++----------+
+| job_id   |
++----------+
+| AD_PRESS |
+| AD_VP    |
+| AD_VP    |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| IT_PROG  |
+| SA_MAN   |
+| SA_MAN   |
++----------+
+10 rows in set (0.00 sec)
+
+
+
+21.Write a query to select all record from employees where last name in
+'BLAKE', 'SCOTT', 'KING' and 'FORD'
+
+
+mysql> SELECT * FROM employees where last_name in ("BLAKE","SCOTT","KING","FORD");
++-------------+------------+-----------+-------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+-------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | sking | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.00 |        200 |            10 |
++-------------+------------+-----------+-------+------------+------------+----------+----------+------------+------------+---------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

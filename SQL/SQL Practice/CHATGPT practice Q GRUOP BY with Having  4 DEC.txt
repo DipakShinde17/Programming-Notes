@@ -1,0 +1,154 @@
+
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 56
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice;
+Database changed
+mysql> SELECT * FROM sales;
++---------+---------+------------+---------+-------+--------+
+| sale_id | product | category   | quntity | price | city   |
++---------+---------+------------+---------+-------+--------+
+|       1 | Laptop  | Electronic |       2 | 60000 | Mumbai |
+|       2 | Mobail  | Electronic |       5 | 15000 | Pune   |
+|       6 | shoes   | fashion    |       3 |  2000 | Mumbai |
+|       4 | shirt   | fashion    |       4 |  1000 | Delhi  |
+|       5 | Laptop  | Electronic |       1 | 60000 | Pune   |
+|       6 | shoes   | fashion    |       2 |  2000 | Delhi  |
++---------+---------+------------+---------+-------+--------+
+6 rows in set (0.03 sec)
+
+mysql> SELECT product,SUM(quntity) FROM sales GROUP BY product;
++---------+--------------+
+| product | SUM(quntity) |
++---------+--------------+
+| Laptop  |            3 |
+| Mobail  |            5 |
+| shoes   |            5 |
+| shirt   |            4 |
++---------+--------------+
+4 rows in set (0.04 sec)
+
+mysql> SELECT COUNT(*) FROM sales GROUP BY city;
++----------+
+| COUNT(*) |
++----------+
+|        2 |
+|        2 |
+|        2 |
++----------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT city,COUNT(*) FROM sales GROUP BY city;
++--------+----------+
+| city   | COUNT(*) |
++--------+----------+
+| Mumbai |        2 |
+| Pune   |        2 |
+| Delhi  |        2 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT category,SUM(price * quntity) FROM sales GROUP BY city;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'practice.sales.category' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT category,SUM(price * quntity) FROM sales GROUP BY category;
++------------+----------------------+
+| category   | SUM(price * quntity) |
++------------+----------------------+
+| Electronic |               255000 |
+| fashion    |                14000 |
++------------+----------------------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT category,AVG(price) FROM sales GROUP BY category;
++------------+------------+
+| category   | AVG(price) |
++------------+------------+
+| Electronic | 45000.0000 |
+| fashion    |  1666.6667 |
++------------+------------+
+2 rows in set (0.03 sec)
+
+mysql> SELECT city,COUNT(DISTINCT product) FROM sales city;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'practice.city.city'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT city,COUNT(DISTINCT product) FROM GROUP BY sales city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY sales city' at line 1
+mysql> SELECT city,COUNT(DISTINCT product) FROM sales GROUP BY city;
++--------+-------------------------+
+| city   | COUNT(DISTINCT product) |
++--------+-------------------------+
+| Delhi  |                       2 |
+| Mumbai |                       2 |
+| Pune   |                       2 |
++--------+-------------------------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT city,category,SUM(quntity) FROM sales GROUP BY city,category;
++--------+------------+--------------+
+| city   | category   | SUM(quntity) |
++--------+------------+--------------+
+| Mumbai | Electronic |            2 |
+| Pune   | Electronic |            6 |
+| Mumbai | fashion    |            3 |
+| Delhi  | fashion    |            6 |
++--------+------------+--------------+
+4 rows in set (0.02 sec)
+
+mysql> SELECT category,MAX(price) FROM sales GROUP BY category;
++------------+------------+
+| category   | MAX(price) |
++------------+------------+
+| Electronic |      60000 |
+| fashion    |       2000 |
++------------+------------+
+2 rows in set (0.03 sec)
+
+mysql> SELECT city SUM(quntity) AS total_item
+    -> FROM sales
+    -> GROUP BY city ORDER BY total_item desc LIMIT 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SUM(quntity) AS total_item
+FROM sales
+GROUP BY city ORDER BY total_item desc LIM' at line 1
+mysql> SELECT city SUM(quntity) "total_item"
+    -> FROM sales
+    -> GROUP BY city ORDER BY total_item desc LIMIT 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SUM(quntity) "total_item"
+FROM sales
+GROUP BY city ORDER BY total_item desc LIMI' at line 1
+mysql> SELECT city,SUM(quntity) AS total_item
+    -> FROM sales
+    -> GROUP BY city ORDER BY total_item desc LIMIT 1;
++-------+------------+
+| city  | total_item |
++-------+------------+
+| Delhi |          6 |
++-------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sale_id ,SUM(price) AS total_sales
+    -> FROM sales
+    -> GROUP BY sale_id HAVING SUM(price) > 10000;
++---------+-------------+
+| sale_id | total_sales |
++---------+-------------+
+|       1 |       60000 |
+|       2 |       15000 |
+|       5 |       60000 |
++---------+-------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT city, SUM(quntity) AS total_quntity FROM sales
+    -> GROUP BY city
+    -> HAVING SUM(quntity) > 500;
+Empty set (0.03 sec)
+
+mysql>

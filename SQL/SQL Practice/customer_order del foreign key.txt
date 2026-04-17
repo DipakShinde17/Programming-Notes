@@ -1,0 +1,151 @@
+mysql> table order1
+    -> ;
++----------+------------+------------+
+| order_id | order_name | order_date |
++----------+------------+------------+
+|      101 | pizza      | 2025-11-09 |
+|      102 | burger     | 2025-10-10 |
+|      103 | coffe      | 2025-11-10 |
++----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> table customer;
++------+-----------+----------+--------------+------+--------+---------------+
+| c_id | c_name    | address  | payment_mode | age  | gender | veg_or_nonveg |
++------+-----------+----------+--------------+------+--------+---------------+
+|  101 | Dipak     | Parbhani | Online       |   21 | M      | veg           |
+|  102 | Adinath   | parbhani | offline      |   22 | M      | nonveg        |
+|  103 | Aniket    | nanded   | offline      |   18 | M      | nonveg        |
+|  104 | Sanket    | pune     | online       |   23 | M      | NULL          |
+|  105 | suyog     | mumbai   | online       |   22 | M      | NULL          |
+|  106 | Siddeswar | s_nagar  | offline      |   23 | M      | NULL          |
++------+-----------+----------+--------------+------+--------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> update order1 set order_id = 1 where order_id = 101;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update order1 set order_id = 2 where order_id = 102;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update order1 set order_id = 3 where order_id = 103;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table order1;
++----------+------------+------------+
+| order_id | order_name | order_date |
++----------+------------+------------+
+|        1 | pizza      | 2025-11-09 |
+|        2 | burger     | 2025-10-10 |
+|        3 | coffe      | 2025-11-10 |
++----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table order1
+    -> add column c_id int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table order1
+    -> add foreign key (c_id) references customer(c_id) on delete set null;
+Query OK, 3 rows affected (0.15 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table order1;
++----------+------------+------------+------+
+| order_id | order_name | order_date | c_id |
++----------+------------+------------+------+
+|        1 | pizza      | 2025-11-09 | NULL |
+|        2 | burger     | 2025-10-10 | NULL |
+|        3 | coffe      | 2025-11-10 | NULL |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> update order1 set c_id = null where c_id = 101;
+Query OK, 0 rows affected (0.03 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update order1 set c_id = null where c_id = 102;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update order1 set c_id = null where c_id = 103;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> table order1;
++----------+------------+------------+------+
+| order_id | order_name | order_date | c_id |
++----------+------------+------------+------+
+|        1 | pizza      | 2025-11-09 | NULL |
+|        2 | burger     | 2025-10-10 | NULL |
+|        3 | coffe      | 2025-11-10 | NULL |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE order1 SET c_id = 101 WHERE order_id = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE order1 SET c_id = 102 WHERE order_id = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE order1 SET c_id = 103 WHERE order_id = 3;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table order1;
++----------+------------+------------+------+
+| order_id | order_name | order_date | c_id |
++----------+------------+------------+------+
+|        1 | pizza      | 2025-11-09 |  101 |
+|        2 | burger     | 2025-10-10 |  102 |
+|        3 | coffe      | 2025-11-10 |  103 |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> table customer;
++------+-----------+----------+--------------+------+--------+---------------+
+| c_id | c_name    | address  | payment_mode | age  | gender | veg_or_nonveg |
++------+-----------+----------+--------------+------+--------+---------------+
+|  101 | Dipak     | Parbhani | Online       |   21 | M      | veg           |
+|  102 | Adinath   | parbhani | offline      |   22 | M      | nonveg        |
+|  103 | Aniket    | nanded   | offline      |   18 | M      | nonveg        |
+|  104 | Sanket    | pune     | online       |   23 | M      | NULL          |
+|  105 | suyog     | mumbai   | online       |   22 | M      | NULL          |
+|  106 | Siddeswar | s_nagar  | offline      |   23 | M      | NULL          |
++------+-----------+----------+--------------+------+--------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> delete from customer where name = "Aniket";
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> delete from customer where c_name = "Aniket";
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table order1;
++----------+------------+------------+------+
+| order_id | order_name | order_date | c_id |
++----------+------------+------------+------+
+|        1 | pizza      | 2025-11-09 |  101 |
+|        2 | burger     | 2025-10-10 |  102 |
+|        3 | coffe      | 2025-11-10 | NULL |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> table customer;
++------+-----------+----------+--------------+------+--------+---------------+
+| c_id | c_name    | address  | payment_mode | age  | gender | veg_or_nonveg |
++------+-----------+----------+--------------+------+--------+---------------+
+|  101 | Dipak     | Parbhani | Online       |   21 | M      | veg           |
+|  102 | Adinath   | parbhani | offline      |   22 | M      | nonveg        |
+|  104 | Sanket    | pune     | online       |   23 | M      | NULL          |
+|  105 | suyog     | mumbai   | online       |   22 | M      | NULL          |
+|  106 | Siddeswar | s_nagar  | offline      |   23 | M      | NULL          |
++------+-----------+----------+--------------+------+--------+---------------+
+5 rows in set (0.00 sec)
+
+mysql>

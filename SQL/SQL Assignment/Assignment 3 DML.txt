@@ -1,0 +1,252 @@
+
+
+
+1. Write a SQL statement to insert a record as follows:
+Employees : 
+
+
+
+mysql> create table employees (
+    -> employee_id int,
+    -> first_name varchar(10),last_name varchar(10),
+    -> email varchar(25),
+    -> phone_no Bigint,
+    -> hire_date date,job_id int,
+    -> salary decimal(7,2),commission decimal(7,2),
+    -> manager_id int,department_id int );
+Query OK, 0 rows affected (0.06 sec)
+
+
+
+mysql> insert into employees(employee_id,first_name,last_name,email,phone_no,hire_date,job_id,salary,commission,manager_id,department_id) values
+    -> (100,"steven","king","sking",5151234567,"1987-06-17","AD_PRESS",24000,0,200,10),
+    -> (101,"neena","kochher","nkochher",5151234568,"1987-06-18","AD_VP",17000,0,200,10),
+    -> (102,"lex","De haan","ldehaan",5151234569,"1987-06-18","AD_VP",17000,0,200,10),
+    -> (103,"alexander","hunold","ahunold",5904234547,"1987-06-20","IT_PROG",90000,0,103,60),
+    -> (104,"bruce","ernst","bernst",5904234569,"1987-06-21","IT_PROG",60000,0,103,60),
+    -> (105,"david","austin","daustin",5904234568,"1987-06-22","IT_PROG",4800,0,103,60),
+    -> (106,"valli","pataballa","vpatabala",5904234560,"1987-06-23","IT_PROG",4800,0,103,60),
+    -> (107,"diana","lorentz","dlorentz",5904235567,"1987-06-24","IT_PROG",4200,0,114,30),
+    -> (108,"nancy","greenberg","ngreenbe",5151244569,"1987-06-25","SA_MAN",12000,0,145,80),
+    -> (109,"daniel","faviet","dfaviet",5151244169,"1987-06-26","SA_MAN",9000,0,145,80);
+Query OK, 10 rows affected (0.04 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+
+
+
+
+
+
+Q.2) write a sql statement to insert a 3 row by a single statement
+
+
+
+mysql> insert into department (department_id,department_name,manager_id,location_id) values
+    -> (10,"administration",200,1700),
+    -> (20,"marking",201,1800),
+    -> (30,"purchasing",114,1900),
+    -> (40,"human resource",203,2400),
+    -> (50,"shipping",121,1500),
+    -> (60,"IT",103,1400),
+    -> (70,"public relation",204,2700),
+    -> (80,"sales",145,2500);
+Query OK, 8 rows affected (0.04 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            10 | administration  |        200 |        1700 |
+|            20 | marking         |        201 |        1800 |
+|            30 | purchasing      |        114 |        1900 |
+|            40 | human resource  |        203 |        2400 |
+|            50 | shipping        |        121 |        1500 |
+|            60 | IT              |        103 |        1400 |
+|            70 | public relation |        204 |        2700 |
+|            80 | sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+8 rows in set (0.04 sec)
+
+
+
+
+
+Q.3) write a SQL statement to insert one row in in jobs table to ensure that no duplicate value will be entered in a job table.
+
+
+
+mysql> insert into department (department_id,department_name,manager_id,location_id) values
+    -> (10,"administration",200,1700),
+    -> (20,"marking",201,1800),
+    -> (30,"purchasing",114,1900),
+    -> (40,"human resource",203,2400),
+    -> (50,"shipping",121,1500),
+    -> (60,"IT",103,1400),
+    -> (70,"public relation",204,2700),
+    -> (80,"sales",145,2500);
+Query OK, 8 rows affected (0.04 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            10 | administration  |        200 |        1700 |
+|            20 | marking         |        201 |        1800 |
+|            30 | purchasing      |        114 |        1900 |
+|            40 | human resource  |        203 |        2400 |
+|            50 | shipping        |        121 |        1500 |
+|            60 | IT              |        103 |        1400 |
+|            70 | public relation |        204 |        2700 |
+|            80 | sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+8 rows in set (0.04 sec)
+
+#command: - 
+
+
+mysql> alter table jobs
+    -> add primary key (job_id);
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into jobs(JOB_ID,JOB_TITLE,MIN_SALARY,MAX_SALARY) values
+    -> ("AD_PRESS","Data scienstist",40000,70000);
+ERROR 1062 (23000): Duplicate entry 'AD_PRESS' for key 'jobs.PRIMARY'
+mysql>
+
+
+
+
+Q.4) Write SQL statement to increment salary of each emp by 10%.
+
+mysql> select salary from employees
+    -> where salary * 1.10;
++----------+
+| salary   |
++----------+
+| 24000.00 |
+| 17000.00 |
+| 17000.00 |
+| 90000.00 |
+| 60000.00 |
+|  4800.00 |
+|  4800.00 |
+|  4200.00 |
+| 12000.00 |
+|  9000.00 |
++----------+
+
+
+5. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees whose department_id is 80 and gets a
+commission is less than .20%
+
+
+mysql> update employees set email = "NOT AVAILABLE"
+    -> WHERE department_id = 80 && commission < 0.20;
+Query OK, 2 rows affected, 1 warning (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 1
+
+mysql> select * from employees;
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | sking         | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.00 |        200 |            10 |
+|         101 | neena      | kochher   | nkochher      | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         102 | lex        | De haan   | ldehaan       | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         103 | alexander  | hunold    | ahunold       | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.00 |        103 |            60 |
+|         104 | bruce      | ernst     | bernst        | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.00 |        103 |            60 |
+|         105 | david      | austin    | daustin       | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         106 | valli      | pataballa | vpatabala     | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         107 | diana      | lorentz   | dlorentz      | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.00 |        114 |            30 |
+|         108 | nancy      | greenberg | NOT AVAILABLE | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.00 |        145 |            80 |
+|         109 | daniel     | faviet    | NOT AVAILABLE | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.00 |        145 |            80 |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+
+
+
+
+6. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees who belongs to the 'Purchasing' department.
+
+
+
+mysql> update employees set email = "NOT AVAILABLE"
+    -> where department_id = 30;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select * from department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            10 | administration  |        200 |        1700 |
+|            20 | marking         |        201 |        1800 |
+|            30 | purchasing      |        114 |        1900 |
+|            40 | human resource  |        203 |        2400 |
+|            50 | shipping        |        121 |        1500 |
+|            60 | IT              |        103 |        1400 |
+|            70 | public relation |        204 |        2700 |
+|            80 | sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+
+
+
+
+mysql> select * from employees;
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | sking         | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.00 |        200 |            10 |
+|         101 | neena      | kochher   | nkochher      | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         102 | lex        | De haan   | ldehaan       | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.00 |        200 |            10 |
+|         103 | alexander  | hunold    | ahunold       | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.00 |        103 |            60 |
+|         104 | bruce      | ernst     | bernst        | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.00 |        103 |            60 |
+|         105 | david      | austin    | daustin       | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         106 | valli      | pataballa | vpatabala     | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.00 |        103 |            60 |
+|         107 | diana      | lorentz   | NOT AVAILABLE | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.00 |        114 |            30 |
+|         108 | nancy      | greenberg | NOT AVAILABLE | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.00 |        145 |            80 |
+|         109 | daniel     | faviet    | NOT AVAILABLE | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.00 |        145 |            80 |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+
+
+
+
+mysql>   update employees set email = "NOT AVAILABLE"
+    -> ,commission = 0.10;
+Query OK, 10 rows affected (0.01 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from employees;
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| employee_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|         100 | steven     | king      | NOT AVAILABLE | 5151234567 | 1987-06-17 | AD_PRESS | 24000.00 |       0.10 |        200 |            10 |
+|         101 | neena      | kochher   | NOT AVAILABLE | 5151234568 | 1987-06-18 | AD_VP    | 17000.00 |       0.10 |        200 |            10 |
+|         102 | lex        | De haan   | NOT AVAILABLE | 5151234569 | 1987-06-18 | AD_VP    | 17000.00 |       0.10 |        200 |            10 |
+|         103 | alexander  | hunold    | NOT AVAILABLE | 5904234547 | 1987-06-20 | IT_PROG  | 90000.00 |       0.10 |        103 |            60 |
+|         104 | bruce      | ernst     | NOT AVAILABLE | 5904234569 | 1987-06-21 | IT_PROG  | 60000.00 |       0.10 |        103 |            60 |
+|         105 | david      | austin    | NOT AVAILABLE | 5904234568 | 1987-06-22 | IT_PROG  |  4800.00 |       0.10 |        103 |            60 |
+|         106 | valli      | pataballa | NOT AVAILABLE | 5904234560 | 1987-06-23 | IT_PROG  |  4800.00 |       0.10 |        103 |            60 |
+|         107 | diana      | lorentz   | NOT AVAILABLE | 5904235567 | 1987-06-24 | IT_PROG  |  4200.00 |       0.10 |        114 |            30 |
+|         108 | nancy      | greenberg | NOT AVAILABLE | 5151244569 | 1987-06-25 | SA_MAN   | 12000.00 |       0.10 |        145 |            80 |
+|         109 | daniel     | faviet    | NOT AVAILABLE | 5151244169 | 1987-06-26 | SA_MAN   |  9000.00 |       0.10 |        145 |            80 |
++-------------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,122 @@
+
+
+mysql> create table xyz (
+    -> id int,name varchar(10),age int,gender char(1));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc xyz;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> alter table XYZ
+    -> add primary key (id);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column gender varchar(10);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column age int check (age > 18);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column name varchar(10) not null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column age int unique;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column gender varchar(10) default "gender";
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table xyz
+    -> modify column id int auto_increment;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into XYZ(name,age,gender) values
+    -> ("dipak",22,"M");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int         | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+
+mysql> CREATE table ABC(
+    -> eid int ,name varchar(10),class varchar(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into abc (eid ,name,class) value
+    -> (101,"siddeshwar","BCA");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table abc
+    -> ;
++------+------------+-------+
+| eid  | name       | class |
++------+------------+-------+
+|  101 | siddeshwar | BCA   |
++------+------------+-------+
+
+
+mysql> alter table abc
+    -> add primary key (eid);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table xyz
+    -> add foreign key (id) references abc (eid);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`xzy`.`#sql-184c_17`, CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`))
+mysql> table xyz;
++----+-------+------+--------+
+| id | name  | age  | gender |
++----+-------+------+--------+
+|  1 | dipak |   22 | M      |
++----+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> delete from xyz where id = 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> alter table xyz
+    -> add foreign key (id) references abc (eid);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into xyz (name,age) values
+    -> ("adinath",21);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`xzy`.`xyz`, CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`))
+mysql>
+
+
+
+
+
+
+
+
+
+
+

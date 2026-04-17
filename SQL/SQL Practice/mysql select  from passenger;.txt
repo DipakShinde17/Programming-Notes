@@ -1,0 +1,101 @@
+mysql> select * from passenger;
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+| passenger_id | Passenger_name    | gender | email_id              | mo_no      | age  | nationality |
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+|            1 | Amit Patil        | M      | amit.patil@gmail.com  | 9876543210 |   25 | Indian      |
+|            2 | Sneha Deshmukh    | F      | sneha.d@gmail.com     | 9876543211 |   23 | Indian      |
+|            3 | Rahul Kulkarni    | M      | rahul.k@gmail.com     | 9876543212 |   28 | Indian      |
+|            4 | Pooja Jadhav      | F      | pooja.j@gmail.com     | 9876543213 |   24 | Indian      |
+|            5 | Akash Shinde      | M      | akash.s@gmail.com     | 9876543214 |   27 | Indian      |
+|            6 | Neha Pawar        | F      | neha.p@gmail.com      | 9876543215 |   22 | Indian      |
+|            7 | Sanket More       | M      | sanket.m@gmail.com    | 9876543216 |   26 | Indian      |
+|            8 | Rutuja Patil      | F      | rutuja.p@gmail.com    | 9876543217 |   21 | Indian      |
+|            9 | Vishal Kadam      | M      | vishal.k@gmail.com    | 9876543218 |   29 | Indian      |
+|           10 | Priya Bhosale     | F      | priya.b@gmail.com     | 9876543219 |   24 | Indian      |
+|           11 | Omkar Joshi       | M      | omkar.j@gmail.com     | 9876543220 |   26 | Indian      |
+|           12 | Sayali Kulkarni   | F      | sayali.k@gmail.com    | 9876543221 |   23 | Indian      |
+|           13 | Nikhil Chavan     | M      | nikhil.c@gmail.com    | 9876543222 |   28 | Indian      |
+|           14 | Tejaswini Patil   | F      | tejaswini.p@gmail.com | 9876543223 |   25 | Indian      |
+|           15 | Swapnil Sawant    | M      | swapnil.s@gmail.com   | 9876543224 |   30 | Indian      |
+|           16 | Kajal Jagtap      | F      | kajal.j@gmail.com     | 9876543225 |   22 | Indian      |
+|           17 | Pratik Salunkhe   | M      | pratik.s@gmail.com    | 9876543226 |   27 | Indian      |
+|           18 | Aishwarya Gawande | F      | aishwarya.g@gmail.com | 9876543227 |   24 | Indian      |
+|           19 | Rohit Naik        | M      | rohit.n@gmail.com     | 9876543228 |   29 | Indian      |
+|           20 | Madhuri Desai     | F      | madhuri.d@gmail.com   | 9876543229 |   31 | Indian      |
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+20 rows in set (0.00 sec)
+
+mysql> select * from booking;
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+| booking_id | start_from | end_to    | date       | seat_no | seat_preference | payment_status | passenger_id |
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+|        101 | Mumbai     | Delhi     | 2025-01-05 |      12 | Window          | Paid           |            1 |
+|        102 | Pune       | Bangalore | 2025-01-06 |      15 | Aisle           | Paid           |            2 |
+|        103 | Nagpur     | Mumbai    | 2025-01-07 |      18 | Middle          | Pending        |            3 |
+|        104 | Mumbai     | Chennai   | 2025-01-08 |      22 | Window          | Paid           |            4 |
+|        105 | Aurangabad | Delhi     | 2025-01-09 |       9 | Aisle           | Paid           |            5 |
+|        106 | Pune       | Hyderabad | 2025-01-10 |      14 | Window          | Pending        |            6 |
+|        107 | Mumbai     | Goa       | 2025-01-11 |       7 | Window          | Paid           |            7 |
+|        108 | Kolhapur   | Mumbai    | 2025-01-12 |      19 | Middle          | Paid           |            8 |
+|        109 | Nagpur     | Delhi     | 2025-01-13 |      25 | Aisle           | Cancelled      |            9 |
+|        110 | Pune       | Jaipur    | 2025-01-14 |      16 | Window          | Paid           |           10 |
+|        111 | Mumbai     | Kolkata   | 2025-01-15 |      20 | Middle          | Paid           |           11 |
+|        112 | Nashik     | Delhi     | 2025-01-16 |      11 | Aisle           | Pending        |           12 |
+|        113 | Mumbai     | Ahmedabad | 2025-01-17 |       6 | Window          | Paid           |           13 |
+|        114 | Pune       | Indore    | 2025-01-18 |      13 | Middle          | Paid           |           14 |
+|        115 | Nagpur     | Bhopal    | 2025-01-19 |      21 | Aisle           | Paid           |           15 |
+|        116 | Mumbai     | Surat     | 2025-01-20 |      17 | Window          | Pending        |           16 |
+|        117 | Pune       | Udaipur   | 2025-01-21 |      10 | Middle          | Paid           |           17 |
+|        118 | Kolhapur   | Pune      | 2025-01-22 |       8 | Window          | Cancelled      |           18 |
+|        119 | Mumbai     | Amritsar  | 2025-01-23 |      23 | Aisle           | Paid           |           19 |
+|        120 | Nagpur     | Raipur    | 2025-01-24 |      24 | Window          | Paid           |           20 |
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+20 rows in set (0.00 sec)
+
+mysql> select p.passenger_name,p.age,b.start_from,b.seat_preference from passenger
+    -> on p.passenger_id = b.passenger_id
+    -> where b.start_from = "mumbai" and b.seat_preference = "middle" and p.age>= 25 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on p.passenger_id = b.passenger_id
+where b.start_from = "mumbai" and b.seat_pre' at line 2
+mysql> select p.passenger_name,p.age,b.start_from,b.seat_preference from passenger p inner join
+    -> booking b on p.passenger_id = b.passenger_id
+    -> where b.start_from = "mumbai" and b.seat_preference = "middle" and p.age>= 25 ;
++----------------+------+------------+-----------------+
+| passenger_name | age  | start_from | seat_preference |
++----------------+------+------------+-----------------+
+| Omkar Joshi    |   26 | Mumbai     | Middle          |
++----------------+------+------------+-----------------+
+1 row in set (0.02 sec)
+
+mysql> select p.passenger_name,p.age,b.start_from,b.seat_preference from passenger
+    -> on p.passenger_id = b.passenger_id
+    -> where b.start_from = "mumbai" and b.seat_preference = "middle" ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on p.passenger_id = b.passenger_id
+where b.start_from = "mumbai" and b.seat_pre' at line 2
+mysql> select p.passenger_name,p.age,b.start_from,b.seat_preference from passenger p inner join
+    -> booking b on p.passenger_id = b.passenger_id
+    -> where b.start_from = "mumbai" and b.seat_preference = "middle";
++----------------+------+------------+-----------------+
+| passenger_name | age  | start_from | seat_preference |
++----------------+------+------------+-----------------+
+| Omkar Joshi    |   26 | Mumbai     | Middle          |
++----------------+------+------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select p.passenger_name,p.age,b.start_from,b.seat_preference from passenger p inner join
+    -> booking b on p.passenger_id = b.passenger_id
+    -> where b.start_from = "mumbai" ;
++----------------+------+------------+-----------------+
+| passenger_name | age  | start_from | seat_preference |
++----------------+------+------------+-----------------+
+| Amit Patil     |   25 | Mumbai     | Window          |
+| Pooja Jadhav   |   24 | Mumbai     | Window          |
+| Sanket More    |   26 | Mumbai     | Window          |
+| Omkar Joshi    |   26 | Mumbai     | Middle          |
+| Nikhil Chavan  |   28 | Mumbai     | Window          |
+| Kajal Jagtap   |   22 | Mumbai     | Window          |
+| Rohit Naik     |   29 | Mumbai     | Aisle           |
++----------------+------+------------+-----------------+
+7 rows in set (0.00 sec)
+
+mysql>

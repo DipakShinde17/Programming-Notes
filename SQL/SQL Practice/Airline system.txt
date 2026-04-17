@@ -1,0 +1,275 @@
+---------------------------####-Airline Reservation System-####-------------------------------------
+
+
+mysql> create database Airline_System;
+Query OK, 1 row affected (0.09 sec)
+
+
+TABLE PASSENGER: 
+
+mysql> use airline_system;
+Database changed
+mysql> Create table passenger(
+    -> passenger_id int primary key,
+    -> Passenger_name varchar(50),
+    ->
+    -> gender char(2),
+    -> email_id varchar(50) unique,
+    -> mo_no bigint unique,
+    -> age int ,
+    -> nationality varchar(30) );
+Query OK, 0 rows affected (0.14 sec)
+
+
+Table BOOKING: 
+
+mysql> Create table booking(
+    -> booking_id int primary key,
+    -> start_from varchar(30),
+    -> end_to varchar(30),
+    -> date date,
+    -> seat_no int,
+    -> seat_preference varchar(30),
+    -> payment_status varchar(30),
+    -> passenger_id int,
+    -> foreign key (passenger_id) references passenger(passenger_id) );
+Query OK, 0 rows affected (0.10 sec)
+
+
+TABLE PAYMENT: 
+
+mysql> Create table payment(
+    -> payment_id int primary key,
+    -> amount int,
+    -> payment_mode varchar(30),
+    -> booking_id int,
+    -> foreign key (booking_id) references booking(booking_id) );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> alter table payment
+    -> modify payment_id varchar(30) ;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  W
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+arnings: 0
+mysql> INSERT INTO PASSENGER
+    -> (passenger_id, Passenger_name, gender, email_id, mo_no, age, nationality)
+    -> VALUES
+    -> (1, 'Amit Patil', 'M', 'amit.patil@gmail.com', 9876543210, 25, 'Indian'),
+    -> (2, 'Sneha Deshmukh', 'F', 'sneha.d@gmail.com', 9876543211, 23, 'Indian'),
+    -> (3, 'Rahul Kulkarni', 'M', 'rahul.k@gmail.com', 9876543212, 28, 'Indian'),
+    -> (4, 'Pooja Jadhav', 'F', 'pooja.j@gmail.com', 9876543213, 24, 'Indian'),
+    -> (5, 'Akash Shinde', 'M', 'akash.s@gmail.com', 9876543214, 27, 'Indian'),
+    -> (6, 'Neha Pawar', 'F', 'neha.p@gmail.com', 9876543215, 22, 'Indian'),
+    -> (7, 'Sanket More', 'M', 'sanket.m@gmail.com', 9876543216, 26, 'Indian'),
+    -> (8, 'Rutuja Patil', 'F', 'rutuja.p@gmail.com', 9876543217, 21, 'Indian'),
+    -> (9, 'Vishal Kadam', 'M', 'vishal.k@gmail.com', 9876543218, 29, 'Indian'),
+    -> (10, 'Priya Bhosale', 'F', 'priya.b@gmail.com', 9876543219, 24, 'Indian'),
+    ->
+    -> (11, 'Omkar Joshi', 'M', 'omkar.j@gmail.com', 9876543220, 26, 'Indian'),
+    -> (12, 'Sayali Kulkarni', 'F', 'sayali.k@gmail.com', 9876543221, 23, 'Indian'),
+    -> (13, 'Nikhil Chavan', 'M', 'nikhil.c@gmail.com', 9876543222, 28, 'Indian'),
+    -> (14, 'Tejaswini Patil', 'F', 'tejaswini.p@gmail.com', 9876543223, 25, 'Indian'),
+    -> (15, 'Swapnil Sawant', 'M', 'swapnil.s@gmail.com', 9876543224, 30, 'Indian'),
+    -> (16, 'Kajal Jagtap', 'F', 'kajal.j@gmail.com', 9876543225, 22, 'Indian'),
+    -> (17, 'Pratik Salunkhe', 'M', 'pratik.s@gmail.com', 9876543226, 27, 'Indian'),
+    -> (18, 'Aishwarya Gawande', 'F', 'aishwarya.g@gmail.com', 9876543227, 24, 'Indian'),
+    -> (19, 'Rohit Naik', 'M', 'rohit.n@gmail.com', 9876543228, 29, 'Indian'),
+    -> (20, 'Madhuri Desai', 'F', 'madhuri.d@gmail.com', 9876543229, 31, 'Indian');
+Query OK, 20 rows affected (0.03 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from passenger;
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+| passenger_id | Passenger_name    | gender | email_id              | mo_no      | age  | nationality |
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+|            1 | Amit Patil        | M      | amit.patil@gmail.com  | 9876543210 |   25 | Indian      |
+|            2 | Sneha Deshmukh    | F      | sneha.d@gmail.com     | 9876543211 |   23 | Indian      |
+|            3 | Rahul Kulkarni    | M      | rahul.k@gmail.com     | 9876543212 |   28 | Indian      |
+|            4 | Pooja Jadhav      | F      | pooja.j@gmail.com     | 9876543213 |   24 | Indian      |
+|            5 | Akash Shinde      | M      | akash.s@gmail.com     | 9876543214 |   27 | Indian      |
+|            6 | Neha Pawar        | F      | neha.p@gmail.com      | 9876543215 |   22 | Indian      |
+|            7 | Sanket More       | M      | sanket.m@gmail.com    | 9876543216 |   26 | Indian      |
+|            8 | Rutuja Patil      | F      | rutuja.p@gmail.com    | 9876543217 |   21 | Indian      |
+|            9 | Vishal Kadam      | M      | vishal.k@gmail.com    | 9876543218 |   29 | Indian      |
+|           10 | Priya Bhosale     | F      | priya.b@gmail.com     | 9876543219 |   24 | Indian      |
+|           11 | Omkar Joshi       | M      | omkar.j@gmail.com     | 9876543220 |   26 | Indian      |
+|           12 | Sayali Kulkarni   | F      | sayali.k@gmail.com    | 9876543221 |   23 | Indian      |
+|           13 | Nikhil Chavan     | M      | nikhil.c@gmail.com    | 9876543222 |   28 | Indian      |
+|           14 | Tejaswini Patil   | F      | tejaswini.p@gmail.com | 9876543223 |   25 | Indian      |
+|           15 | Swapnil Sawant    | M      | swapnil.s@gmail.com   | 9876543224 |   30 | Indian      |
+|           16 | Kajal Jagtap      | F      | kajal.j@gmail.com     | 9876543225 |   22 | Indian      |
+|           17 | Pratik Salunkhe   | M      | pratik.s@gmail.com    | 9876543226 |   27 | Indian      |
+|           18 | Aishwarya Gawande | F      | aishwarya.g@gmail.com | 9876543227 |   24 | Indian      |
+|           19 | Rohit Naik        | M      | rohit.n@gmail.com     | 9876543228 |   29 | Indian      |
+|           20 | Madhuri Desai     | F      | madhuri.d@gmail.com   | 9876543229 |   31 | Indian      |
++--------------+-------------------+--------+-----------------------+------------+------+-------------+
+20 rows in set (0.02 sec)
+
+mysql> INSERT INTO BOOKING
+    -> (booking_id, start_from, end_to, date, seat_no, seat_preference, payment_status, passenger_id)
+    -> VALUES
+    -> (101, 'Mumbai', 'Delhi', '2025-01-05', 12, 'Window', 'Paid', 1),
+    -> (102, 'Pune', 'Bangalore', '2025-01-06', 15, 'Aisle', 'Paid', 2),
+    -> (103, 'Nagpur', 'Mumbai', '2025-01-07', 18, 'Middle', 'Pending', 3),
+    -> (104, 'Mumbai', 'Chennai', '2025-01-08', 22, 'Window', 'Paid', 4),
+    -> (105, 'Aurangabad', 'Delhi', '2025-01-09', 9, 'Aisle', 'Paid', 5),
+    ->
+    -> (106, 'Pune', 'Hyderabad', '2025-01-10', 14, 'Window', 'Pending', 6),
+    -> (107, 'Mumbai', 'Goa', '2025-01-11', 7, 'Window', 'Paid', 7),
+    -> (108, 'Kolhapur', 'Mumbai', '2025-01-12', 19, 'Middle', 'Paid', 8),
+    -> (109, 'Nagpur', 'Delhi', '2025-01-13', 25, 'Aisle', 'Cancelled', 9),
+    -> (110, 'Pune', 'Jaipur', '2025-01-14', 16, 'Window', 'Paid', 10),
+    ->
+    -> (111, 'Mumbai', 'Kolkata', '2025-01-15', 20, 'Middle', 'Paid', 11),
+    -> (112, 'Nashik', 'Delhi', '2025-01-16', 11, 'Aisle', 'Pending', 12),
+    -> (113, 'Mumbai', 'Ahmedabad', '2025-01-17', 6, 'Window', 'Paid', 13),
+    -> (114, 'Pune', 'Indore', '2025-01-18', 13, 'Middle', 'Paid', 14),
+    -> (115, 'Nagpur', 'Bhopal', '2025-01-19', 21, 'Aisle', 'Paid', 15),
+    ->
+    -> (116, 'Mumbai', 'Surat', '2025-01-20', 17, 'Window', 'Pending', 16),
+    -> (117, 'Pune', 'Udaipur', '2025-01-21', 10, 'Middle', 'Paid', 17),
+    -> (118, 'Kolhapur', 'Pune', '2025-01-22', 8, 'Window', 'Cancelled', 18),
+    -> (119, 'Mumbai', 'Amritsar', '2025-01-23', 23, 'Aisle', 'Paid', 19),
+    -> (120, 'Nagpur', 'Raipur', '2025-01-24', 24, 'Window', 'Paid', 20);
+Query OK, 20 rows affected (0.04 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from booking;
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+| booking_id | start_from | end_to    | date       | seat_no | seat_preference | payment_status | passenger_id |
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+|        101 | Mumbai     | Delhi     | 2025-01-05 |      12 | Window          | Paid           |            1 |
+|        102 | Pune       | Bangalore | 2025-01-06 |      15 | Aisle           | Paid           |            2 |
+|        103 | Nagpur     | Mumbai    | 2025-01-07 |      18 | Middle          | Pending        |            3 |
+|        104 | Mumbai     | Chennai   | 2025-01-08 |      22 | Window          | Paid           |            4 |
+|        105 | Aurangabad | Delhi     | 2025-01-09 |       9 | Aisle           | Paid           |            5 |
+|        106 | Pune       | Hyderabad | 2025-01-10 |      14 | Window          | Pending        |            6 |
+|        107 | Mumbai     | Goa       | 2025-01-11 |       7 | Window          | Paid           |            7 |
+|        108 | Kolhapur   | Mumbai    | 2025-01-12 |      19 | Middle          | Paid           |            8 |
+|        109 | Nagpur     | Delhi     | 2025-01-13 |      25 | Aisle           | Cancelled      |            9 |
+|        110 | Pune       | Jaipur    | 2025-01-14 |      16 | Window          | Paid           |           10 |
+|        111 | Mumbai     | Kolkata   | 2025-01-15 |      20 | Middle          | Paid           |           11 |
+|        112 | Nashik     | Delhi     | 2025-01-16 |      11 | Aisle           | Pending        |           12 |
+|        113 | Mumbai     | Ahmedabad | 2025-01-17 |       6 | Window          | Paid           |           13 |
+|        114 | Pune       | Indore    | 2025-01-18 |      13 | Middle          | Paid           |           14 |
+|        115 | Nagpur     | Bhopal    | 2025-01-19 |      21 | Aisle           | Paid           |           15 |
+|        116 | Mumbai     | Surat     | 2025-01-20 |      17 | Window          | Pending        |           16 |
+|        117 | Pune       | Udaipur   | 2025-01-21 |      10 | Middle          | Paid           |           17 |
+|        118 | Kolhapur   | Pune      | 2025-01-22 |       8 | Window          | Cancelled      |           18 |
+|        119 | Mumbai     | Amritsar  | 2025-01-23 |      23 | Aisle           | Paid           |           19 |
+|        120 | Nagpur     | Raipur    | 2025-01-24 |      24 | Window          | Paid           |           20 |
++------------+------------+-----------+------------+---------+-----------------+----------------+--------------+
+20 rows in set (0.00 sec)
+
+mysql>
+
+
+
+mysql> INSERT INTO PAYMENT
+    -> (payment_id, amount, payment_mode, booking_id)
+    -> VALUES
+    -> ('PAY001', 5500, 'UPI', 101),
+    -> ('PAY002', 7200, 'Credit Card', 102),
+    -> ('PAY003', 4800, 'Debit Card', 103),
+    -> ('PAY004', 8200, 'Net Banking', 104),
+    -> ('PAY005', 6500, 'UPI', 105),
+    ->
+    -> ('PAY006', 7000, 'Credit Card', 106),
+    -> ('PAY007', 4500, 'UPI', 107),
+    -> ('PAY008', 5100, 'Debit Card', 108),
+    -> ('PAY009', 9000, 'Net Banking', 109),
+    -> ('PAY010', 6800, 'UPI', 110),
+    ->
+    -> ('PAY011', 7500, 'Credit Card', 111),
+    -> ('PAY012', 6200, 'UPI', 112),
+    -> ('PAY013', 4700, 'Debit Card', 113),
+    -> ('PAY014', 5300, 'UPI', 114),
+    -> ('PAY015', 6000, 'Credit Card', 115),
+    ->
+    -> ('PAY016', 4900, 'Net Banking', 116),
+    -> ('PAY017', 7100, 'Debit Card', 117),
+    -> ('PAY018', 4600, 'UPI', 118),
+    -> ('PAY019', 8800, 'Credit Card', 119),
+    -> ('PAY020', 5200, 'UPI', 120);
+Query OK, 20 rows affected (0.05 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from payment;
++------------+--------+--------------+------------+
+| payment_id | amount | payment_mode | booking_id |
++------------+--------+--------------+------------+
+| PAY001     |   5500 | UPI          |        101 |
+| PAY002     |   7200 | Credit Card  |        102 |
+| PAY003     |   4800 | Debit Card   |        103 |
+| PAY004     |   8200 | Net Banking  |        104 |
+| PAY005     |   6500 | UPI          |        105 |
+| PAY006     |   7000 | Credit Card  |        106 |
+| PAY007     |   4500 | UPI          |        107 |
+| PAY008     |   5100 | Debit Card   |        108 |
+| PAY009     |   9000 | Net Banking  |        109 |
+| PAY010     |   6800 | UPI          |        110 |
+| PAY011     |   7500 | Credit Card  |        111 |
+| PAY012     |   6200 | UPI          |        112 |
+| PAY013     |   4700 | Debit Card   |        113 |
+| PAY014     |   5300 | UPI          |        114 |
+| PAY015     |   6000 | Credit Card  |        115 |
+| PAY016     |   4900 | Net Banking  |        116 |
+| PAY017     |   7100 | Debit Card   |        117 |
+| PAY018     |   4600 | UPI          |        118 |
+| PAY019     |   8800 | Credit Card  |        119 |
+| PAY020     |   5200 | UPI          |        120 |
++------------+--------+--------------+------------+
+20 rows in set (0.00 sec)
+
+
+Table Itinerary: 
+
+mysql> create table Itinerary(
+    -> Itinerary_id varchar(30) primary key,
+    -> Scheduled_Arrivel time,
+    -> booking_id int,
+    -> foreign key(booking_id) references booking(booking_id));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> INSERT INTO Itinerary
+    -> (Itinerary_id, Scheduled_Arrivel, booking_id)
+    -> VALUES
+    -> ('ITI001', '10:30:00', 101),
+    -> ('ITI002', '12:15:00', 102),
+    -> ('ITI003', '09:45:00', 103),
+    -> ('ITI004', '14:20:00', 104),
+    -> ('ITI005', '18:10:00', 105),
+    ->
+    -> ('ITI006', '07:50:00', 106),
+    -> ('ITI007', '16:30:00', 107),
+    -> ('ITI008', '11:40:00', 108),
+    -> ('ITI009', '20:25:00', 109),
+    -> ('ITI010', '13:55:00', 110),
+    ->
+    -> ('ITI011', '06:35:00', 111),
+    -> ('ITI012', '15:10:00', 112),
+    -> ('ITI013', '08:20:00', 113),
+    -> ('ITI014', '17:45:00', 114),
+    -> ('ITI015', '19:30:00', 115),
+    ->
+    -> ('ITI016', '21:15:00', 116),
+    -> ('ITI017', '10:05:00', 117),
+    -> ('ITI018', '14:50:00', 118),
+    -> ('ITI019', '22:10:00', 119),
+    -> ('ITI020', '09:00:00', 120);
+Query OK, 20 rows affected (0.03 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

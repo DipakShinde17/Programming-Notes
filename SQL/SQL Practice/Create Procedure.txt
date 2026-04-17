@@ -1,0 +1,169 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use julyAug;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| books             |
+| branch            |
+| country           |
+| department        |
+| emp               |
+| emplyoee          |
+| job               |
+| job_histry        |
+| jobs              |
+| room              |
+| stu               |
+| student           |
++-------------------+
+12 rows in set (0.10 sec)
+
+mysql> delimiter #
+mysql> create procedure demo()
+    -> begin
+    ->       select * from emp;
+    -> end#
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> call demo()
+    -> #
+Empty set (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create procedure demo2()
+    -> beign
+    ->     select * from books;
+    -> end#
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select * from books;
+end' at line 3
+mysql> create procedure demo2()
+    -> begin
+    ->     select * from books;
+    -> end#
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call demo2()#
+Empty set (0.05 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from books#
+Empty set (0.00 sec)
+
+mysql> select * from department#
+Empty set (0.05 sec)
+
+mysql> select * from students#
+ERROR 1146 (42S02): Table 'julyaug.students' doesn't exist
+mysql> select * from student#
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+6 rows in set (0.03 sec)
+
+mysql> create procedure student()
+    -> begin
+    ->     select * from student;
+    -> end #
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> call student#
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show procedure status where db = "julyaug";
+    -> #
++---------+---------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db      | Name    | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++---------+---------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| julyaug | demo    | PROCEDURE | root@localhost | 2025-12-17 12:59:03 | 2025-12-17 12:59:03 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| julyaug | demo2   | PROCEDURE | root@localhost | 2025-12-17 13:02:04 | 2025-12-17 13:02:04 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| julyaug | student | PROCEDURE | root@localhost | 2025-12-17 13:04:27 | 2025-12-17 13:04:27 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++---------+---------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+3 rows in set (0.03 sec)
+
+mysql>
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> create procedure dept()
+    -> begin
+    ->    select name,salary,dno from emp;
+    -> end #
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> call dept #
++------------+--------+------+
+| name       | salary | dno  |
++------------+--------+------+
+| dipak      |  23000 | NULL |
+| siddeshwar |  34000 | NULL |
+| dipali     |  56000 |    2 |
+| ajinkya    |  34000 | NULL |
+| mayur      |  22000 |    1 |
+| mayuri     |  22000 |    2 |
++------------+--------+------+
+6 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+mysql> create procedure j2()
+    ->     select e.name,e.salary,d.name from emp e inner join dept d on e.dno = d.dno;
+    -> end#
+Query OK, 0 rows affected (0.03 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end' at line 1
+mysql> call j2()#
++--------+--------+-------+
+| name   | salary | name  |
++--------+--------+-------+
+| dipali |  56000 | admin |
+| mayur  |  22000 | IT    |
+| mayuri |  22000 | admin |
++--------+--------+-------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>

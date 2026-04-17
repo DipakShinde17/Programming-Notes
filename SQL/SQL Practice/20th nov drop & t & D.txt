@@ -1,0 +1,210 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use julyaug;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| branch            |
+| country           |
+| department        |
+| emp               |
+| emplyoee          |
+| job               |
+| job_histry        |
+| jobs              |
+| room              |
+| student           |
++-------------------+
+10 rows in set (0.01 sec)
+
+mysql> table emp;
+Empty set (0.01 sec)
+
+mysql> show employee;'
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+    '> show emplyoee;'
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+show emplyoee;'' at line 1
+mysql> show emplyoee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'emplyoee' at line 1
+mysql> table employee;
+ERROR 1146 (42S02): Table 'julyaug.employee' doesn't exist
+mysql> table student;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table stu as (select * from student);
+Query OK, 6 rows affected (0.07 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> table stu;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from emp where eid = 105 ;
+ERROR 1054 (42S22): Unknown column 'eid' in 'where clause'
+mysql> delete from emp where id = 105 ;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> delete from stu where id = 105 ;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table stu;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stu
+    -> add primary key (id);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table stu
+    -> modify column id int auto_increment;
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> truncate stu;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> desc stu;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(20) | YES  |     | NULL    |                |
+| class  | varchar(10) | YES  |     | NULL    |                |
+| age    | int         | YES  |     | NULL    |                |
+| gender | varchar(1)  | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into stu (name,class) values
+    -> ('ajinkya','BCA');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table stu;
++----+---------+-------+------+--------+
+| id | name    | class | age  | gender |
++----+---------+-------+------+--------+
+|  1 | ajinkya | BCA   | NULL | NULL   |
++----+---------+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> drop stu;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'stu' at line 1
+mysql> drop table stu;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc stu;
+ERROR 1146 (42S02): Table 'julyaug.stu' doesn't exist
+mysql> table student
+    -> ;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
++-----+------------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create table stu as (select * from student);
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> insert into stu (name,age,gender) values
+    -> ("vitthal",21,"m"),
+    -> ("kiran",22,"F");
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table stu;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
+|   0 | vitthal    | NULL  |   21 | m      |
+|   0 | kiran      | NULL  |   22 | F      |
++-----+------------+-------+------+--------+
+8 rows in set (0.00 sec)
+
+mysql> insert into stu (name,age,gender) values
+    -> ("vitthal",21,"m");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table stu;
++-----+------------+-------+------+--------+
+| id  | name       | class | age  | gender |
++-----+------------+-------+------+--------+
+| 101 | Dipak      | BCA   |   22 | M      |
+| 102 | siddeshwar | BCA   |   23 | M      |
+| 103 | Suyog      | BCA   |   21 | M      |
+| 104 | Sanket     | NULL  |   23 | M      |
+| 105 | Ajinkya    | BSC   |   22 | M      |
+| 106 | Adinath    | BSC   |   21 | M      |
+|   0 | vitthal    | NULL  |   21 | m      |
+|   0 | kiran      | NULL  |   22 | F      |
+|   0 | vitthal    | NULL  |   21 | m      |
++-----+------------+-------+------+--------+
+9 rows in set (0.00 sec)
+
+mysql> desc stu;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   |     | 0       |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| class  | varchar(10) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>

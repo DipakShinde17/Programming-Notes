@@ -1,0 +1,279 @@
+ql> table order1;
++----------+------------+------------+------+
+| order_id | order_name | order_date | c_id |
++----------+------------+------------+------+
+|      101 | pizza      | 2025-11-09 | NULL |
+|      102 | burger     | 2025-10-10 | NULL |
+|      103 | coffe      | 2025-11-10 | NULL |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> desc order1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| order_id   | int         | NO   | PRI | NULL    |       |
+| order_name | varchar(10) | YES  |     | NULL    |       |
+| order_date | date        | YES  |     | NULL    |       |
+| c_id       | int         | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> table customer;
++------+-----------+----------+--------------+------+--------+---------------+
+| c_id | c_name    | address  | payment_mode | age  | gender | veg_or_nonveg |
++------+-----------+----------+--------------+------+--------+---------------+
+|  101 | Dipak     | Parbhani | Online       |   21 | M      | veg           |
+|  102 | Adinath   | parbhani | offline      |   22 | M      | nonveg        |
+|  103 | Aniket    | nanded   | offline      |   18 | M      | nonveg        |
+|  104 | Sanket    | pune     | online       |   23 | M      | NULL          |
+|  105 | suyog     | mumbai   | online       |   22 | M      | NULL          |
+|  106 | Siddeswar | s_nagar  | offline      |   23 | M      | NULL          |
++------+-----------+----------+--------------+------+--------+---------------+
+6 rows in set (0.03 sec)
+
+mysql> desc customer;
++---------------+-------------+------+-----+----------+----------------+
+| Field         | Type        | Null | Key | Default  | Extra          |
++---------------+-------------+------+-----+----------+----------------+
+| c_id          | int         | NO   | PRI | NULL     | auto_increment |
+| c_name        | varchar(20) | NO   |     | NULL     |                |
+| address       | varchar(20) | YES  |     | NULL     |                |
+| payment_mode  | varchar(10) | YES  |     | pay_bill |                |
+| age           | int         | YES  |     | NULL     |                |
+| gender        | char(1)     | YES  |     | NULL     |                |
+| veg_or_nonveg | varchar(10) | YES  |     | NULL     |                |
++---------------+-------------+------+-----+----------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> ;show tables'
+ERROR:
+No query specified
+
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+'' at line 1
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| branch             |
+| customer           |
+| dept               |
+| emp                |
+| order1             |
+| student            |
++--------------------+
+6 rows in set (0.03 sec)
+
+mysql> desc dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| loc   | varchar(20) | YES  |     | pune    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> table dept;
+Empty set (0.03 sec)
+
+mysql> insert into dept (dno,name,loc) values
+    -> (1,"IT","pune"),(2,"Admin","mumbai"),
+    -> (3,"HR","Parbhani");
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table emp;
+Empty set (0.00 sec)
+
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | loc      |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | mumbai   |
+|   3 | HR    | Parbhani |
++-----+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp (eid,name,salary,address,dno) values
+    -> (101,"dipak",23000,"parbhani",1),
+    -> (102,"siddeshwar",34000,"nanded",1),
+    -> (103,"dipali",56000,"pune",2),
+    -> (104,"ajinkya",34000,"nashik",3),
+    -> (105,"kirti","12000","nagpur",3);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani |    1 |
+| 102 | siddeshwar |  34000 | nanded   |    1 |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   |    3 |
+| 105 | kirti      |  12000 | nagpur   |    3 |
++-----+------------+--------+----------+------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> ;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show create table emp;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                         |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `eid` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `salary` int DEFAULT NULL,
+  `address` varchar(20) DEFAULT 'pune',
+  `dno` int DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  KEY `dno` (`dno`),
+  CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`),
+  CONSTRAINT `emp_chk_1` CHECK ((`salary` > 10000))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table emp
+    -> drop constraint emp_ibfk_1;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> add foreign key(dno)
+    -> references dept (dno)
+    -> on delete set null;
+Query OK, 5 rows affected (0.14 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from emp
+    ->
+    -> where eid = 105;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani |    1 |
+| 102 | siddeshwar |  34000 | nanded   |    1 |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   |    3 |
++-----+------------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> table desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc' at line 1
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | loc      |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | mumbai   |
+|   3 | HR    | Parbhani |
++-----+-------+----------+
+3 rows in set (0.02 sec)
+
+mysql> delete from dept where name = "HR";
+Query OK, 1 row affected (0.04 sec)
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani |    1 |
+| 102 | siddeshwar |  34000 | nanded   |    1 |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
++-----+------------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table emp
+    -> drop constraint emp_ibfk_1;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> delete from dept where name = "it";
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   2 | Admin | mumbai |
++-----+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani |    1 |
+| 102 | siddeshwar |  34000 | nanded   |    1 |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
++-----+------------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql> delete from dept where name = "Admin";
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani |    1 |
+| 102 | siddeshwar |  34000 | nanded   |    1 |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
++-----+------------+--------+----------+------+
+4 rows in set (0.00 sec)
+
+mysql>

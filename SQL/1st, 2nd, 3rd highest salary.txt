@@ -1,0 +1,55 @@
+1st, 2nd, 3rd highest salary WITHOUT LIMIT: 
+
+
+SELECT * FROM EMP 
+WHERE salary = ( SELECT MAX(salary) FROM EMP);
+
+SELECT * FROM emp 
+WHERE salary = (SELECT MAX(salary) FROM emp);
+
+=============================
+
+SELECT * FROM EMP 
+WHERE salary = (SELECT MAX(salary) FROM EMP 
+WHERE salary <(SELECT MAX(salary) FROM EMP) );
+
+SELECT * FROM emp 
+WHERE salary = (
+    SELECT MAX(salary) 
+    FROM emp 
+    WHERE salary < (SELECT MAX(salary) FROM emp)
+);
+
+===============================
+
+SELECT * FROM EMP
+WHERE salary = (SELECT MAX(salary) FROM EMP 
+WHERE salary < (SELECT MAX(SALARY) FROM EMP
+WHERE SALARY < (SELECT MAX(salary) FROM EMP)));
+
+
+SELECT * FROM emp 
+WHERE salary = (
+    SELECT MAX(salary) 
+    FROM emp 
+    WHERE salary < (
+        SELECT MAX(salary) 
+        FROM emp 
+        WHERE salary < (SELECT MAX(salary) FROM emp)
+    )
+);
+
+
+
+
+LIMIT use karun 1st, 2nd, 3rd highest salary:
+
+
+SELECT * FROM EMP
+ORDER BY SALARY DESC LIMIT 1;
+
+SELECT * FROM EMP
+ORDER BY SALARY DESC LIMIT 1 OFFSET 1;
+
+SELECT * FROM EMP 
+ORDER BY SALARY DESC LIMIT 1 OFFSET 2;

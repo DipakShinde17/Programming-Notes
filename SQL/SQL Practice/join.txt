@@ -1,0 +1,237 @@
+nter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice;
+Database changed
+mysql> table emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani | NULL |
+| 102 | siddeshwar |  34000 | nanded   | NULL |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
++-----+------------+--------+----------+------+
+4 rows in set (0.04 sec)
+
+mysql> table dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | IT    | mumbai |
+|   2 | admin | pune   |
+|   3 | HR    | pune   |
++-----+-------+--------+
+3 rows in set (0.11 sec)
+
+mysql> insert into emp(eid,name,salary,address,dno) values
+    -> (105,"mayur",22000,"Pune",1),
+    -> (106,"mayuri",22000,"Mumbai",2);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-----+------------+--------+----------+------+
+| eid | name       | salary | address  | dno  |
++-----+------------+--------+----------+------+
+| 101 | dipak      |  23000 | parbhani | NULL |
+| 102 | siddeshwar |  34000 | nanded   | NULL |
+| 103 | dipali     |  56000 | pune     |    2 |
+| 104 | ajinkya    |  34000 | nashik   | NULL |
+| 105 | mayur      |  22000 | Pune     |    1 |
+| 106 | mayuri     |  22000 | Mumbai   |    2 |
++-----+------------+--------+----------+------+
+6 rows in set (0.02 sec)
+
+mysql> select * from emp,dept;
++-----+------------+--------+----------+------+-----+-------+--------+
+| eid | name       | salary | address  | dno  | dno | name  | loc    |
++-----+------------+--------+----------+------+-----+-------+--------+
+| 101 | dipak      |  23000 | parbhani | NULL |   3 | HR    | pune   |
+| 101 | dipak      |  23000 | parbhani | NULL |   2 | admin | pune   |
+| 101 | dipak      |  23000 | parbhani | NULL |   1 | IT    | mumbai |
+| 102 | siddeshwar |  34000 | nanded   | NULL |   3 | HR    | pune   |
+| 102 | siddeshwar |  34000 | nanded   | NULL |   2 | admin | pune   |
+| 102 | siddeshwar |  34000 | nanded   | NULL |   1 | IT    | mumbai |
+| 103 | dipali     |  56000 | pune     |    2 |   3 | HR    | pune   |
+| 103 | dipali     |  56000 | pune     |    2 |   2 | admin | pune   |
+| 103 | dipali     |  56000 | pune     |    2 |   1 | IT    | mumbai |
+| 104 | ajinkya    |  34000 | nashik   | NULL |   3 | HR    | pune   |
+| 104 | ajinkya    |  34000 | nashik   | NULL |   2 | admin | pune   |
+| 104 | ajinkya    |  34000 | nashik   | NULL |   1 | IT    | mumbai |
+| 105 | mayur      |  22000 | Pune     |    1 |   3 | HR    | pune   |
+| 105 | mayur      |  22000 | Pune     |    1 |   2 | admin | pune   |
+| 105 | mayur      |  22000 | Pune     |    1 |   1 | IT    | mumbai |
+| 106 | mayuri     |  22000 | Mumbai   |    2 |   3 | HR    | pune   |
+| 106 | mayuri     |  22000 | Mumbai   |    2 |   2 | admin | pune   |
+| 106 | mayuri     |  22000 | Mumbai   |    2 |   1 | IT    | mumbai |
++-----+------------+--------+----------+------+-----+-------+--------+
+18 rows in set (0.03 sec)
+
+mysql> select e.name,d.name,e.salary,d.dno,d.loc from emp e
+    -> inner join dept d
+    -> on e.dno = d.dno;
++--------+-------+--------+-----+--------+
+| name   | name  | salary | dno | loc    |
++--------+-------+--------+-----+--------+
+| dipali | admin |  56000 |   2 | pune   |
+| mayur  | IT    |  22000 |   1 | mumbai |
+| mayuri | admin |  22000 |   2 | pune   |
++--------+-------+--------+-----+--------+
+3 rows in set (0.03 sec)
+
+mysql> select * from emp inner join dept
+    -> on dno = dno;
+ERROR 1052 (23000): Column 'dno' in on clause is ambiguous
+mysql> select * from emp inner join dept
+    -> on emp.dno = dept.dno;
++-----+--------+--------+---------+------+-----+-------+--------+
+| eid | name   | salary | address | dno  | dno | name  | loc    |
++-----+--------+--------+---------+------+-----+-------+--------+
+| 103 | dipali |  56000 | pune    |    2 |   2 | admin | pune   |
+| 105 | mayur  |  22000 | Pune    |    1 |   1 | IT    | mumbai |
+| 106 | mayuri |  22000 | Mumbai  |    2 |   2 | admin | pune   |
++-----+--------+--------+---------+------+-----+-------+--------+
+3 rows in set (0.05 sec)
+
+mysql> select * from emp inner join dept
+    -> on e.dno = d.dno;
+ERROR 1054 (42S22): Unknown column 'e.dno' in 'on clause'
+mysql> select * from emp LEFT JOIN dept
+    -> on emp.dno = dept.dno;
++-----+------------+--------+----------+------+------+-------+--------+
+| eid | name       | salary | address  | dno  | dno  | name  | loc    |
++-----+------------+--------+----------+------+------+-------+--------+
+| 101 | dipak      |  23000 | parbhani | NULL | NULL | NULL  | NULL   |
+| 102 | siddeshwar |  34000 | nanded   | NULL | NULL | NULL  | NULL   |
+| 103 | dipali     |  56000 | pune     |    2 |    2 | admin | pune   |
+| 104 | ajinkya    |  34000 | nashik   | NULL | NULL | NULL  | NULL   |
+| 105 | mayur      |  22000 | Pune     |    1 |    1 | IT    | mumbai |
+| 106 | mayuri     |  22000 | Mumbai   |    2 |    2 | admin | pune   |
++-----+------------+--------+----------+------+------+-------+--------+
+6 rows in set (0.03 sec)
+
+mysql> select * from emp inner join dept
+    -> on emp.dno = dept.dno;
++-----+--------+--------+---------+------+-----+-------+--------+
+| eid | name   | salary | address | dno  | dno | name  | loc    |
++-----+--------+--------+---------+------+-----+-------+--------+
+| 103 | dipali |  56000 | pune    |    2 |   2 | admin | pune   |
+| 105 | mayur  |  22000 | Pune    |    1 |   1 | IT    | mumbai |
+| 106 | mayuri |  22000 | Mumbai  |    2 |   2 | admin | pune   |
++-----+--------+--------+---------+------+-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp RIGHT JOIN dept
+    -> on emp.dno = dept.dno;
++------+--------+--------+---------+------+-----+-------+--------+
+| eid  | name   | salary | address | dno  | dno | name  | loc    |
++------+--------+--------+---------+------+-----+-------+--------+
+|  105 | mayur  |  22000 | Pune    |    1 |   1 | IT    | mumbai |
+|  106 | mayuri |  22000 | Mumbai  |    2 |   2 | admin | pune   |
+|  103 | dipali |  56000 | pune    |    2 |   2 | admin | pune   |
+| NULL | NULL   |   NULL | NULL    | NULL |   3 | HR    | pune   |
++------+--------+--------+---------+------+-----+-------+--------+
+4 rows in set (0.03 sec)
+
+mysql> create table manager(
+    -> eid int,
+    -> name varchar(30),
+    -> salary int,
+    -> dno int,
+    -> mid int );
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> insert into manager(eid,name,salary,dno,mid) values
+    -> (101,"Lilesh",45000,1,103),
+    -> (102,"Swpnil",40000,2,null),
+    -> (103,"Tejas",23000,1,105),
+    -> (104,"Dipali",33000,2,103),
+    -> (105,"Vaishanvi",43000,1,105),
+    -> (106,"Dipak",25000,2,null);
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from manager;
++------+-----------+--------+------+------+
+| eid  | name      | salary | dno  | mid  |
++------+-----------+--------+------+------+
+|  101 | Lilesh    |  45000 |    1 |  103 |
+|  102 | Swpnil    |  40000 |    2 | NULL |
+|  103 | Tejas     |  23000 |    1 |  105 |
+|  104 | Dipali    |  33000 |    2 |  103 |
+|  105 | Vaishanvi |  43000 |    1 |  105 |
+|  106 | Dipak     |  25000 |    2 | NULL |
++------+-----------+--------+------+------+
+6 rows in set (0.03 sec)
+
+mysql> select m.name,p.name
+    -> from manager m inner join manager p
+    -> on p.mid = m.mid;
++-----------+-----------+
+| name      | name      |
++-----------+-----------+
+| Dipali    | Lilesh    |
+| Lilesh    | Lilesh    |
+| Vaishanvi | Tejas     |
+| Tejas     | Tejas     |
+| Dipali    | Dipali    |
+| Lilesh    | Dipali    |
+| Vaishanvi | Vaishanvi |
+| Tejas     | Vaishanvi |
++-----------+-----------+
+8 rows in set (0.03 sec)
+
+mysql> select m.name,p.name
+    -> from manager m inner join manager p
+    -> on m.mid = p.mid;
++-----------+-----------+
+| name      | name      |
++-----------+-----------+
+| Dipali    | Lilesh    |
+| Lilesh    | Lilesh    |
+| Vaishanvi | Tejas     |
+| Tejas     | Tejas     |
+| Dipali    | Dipali    |
+| Lilesh    | Dipali    |
+| Vaishanvi | Vaishanvi |
+| Tejas     | Vaishanvi |
++-----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.eid,e.name "emp_name",m.name "manager_name" from manager e inner join manager m
+    -> on e.mid = m.eid;
++------+-----------+--------------+
+| eid  | emp_name  | manager_name |
++------+-----------+--------------+
+|  104 | Dipali    | Tejas        |
+|  101 | Lilesh    | Tejas        |
+|  105 | Vaishanvi | Vaishanvi    |
+|  103 | Tejas     | Vaishanvi    |
++------+-----------+--------------+
+4 rows in set (0.02 sec)
+
+mysql> select m.name,p.name
+    -> from manager m inner join manager p
+    -> on m.mid = p.eid;
++-----------+-----------+
+| name      | name      |
++-----------+-----------+
+| Dipali    | Tejas     |
+| Lilesh    | Tejas     |
+| Vaishanvi | Vaishanvi |
+| Tejas     | Vaishanvi |
++-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,55 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use julyaug;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| branch            |
+| employee          |
+| room              |
++-------------------+
+3 rows in set (0.01 sec)
+
+mysql> show branch;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'branch' at line 1
+mysql> desc branch;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| bno      | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table branch
+    -> add primary key (bno);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table emp
+    -> eid int,
+    -> name varchar(20) not null,
+    -> salary int check (salary > 1000),
+    -> mono int unique,
+    -> address varchar(20) default "pune",
+    -> bno int,
+    -> foreign key(bno) references branch(bno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'eid int,
+name varchar(20) not null,
+salary int check (salary > 1000),
+mono int u' at line 2
+mysql> salary int check (salary > 1000),

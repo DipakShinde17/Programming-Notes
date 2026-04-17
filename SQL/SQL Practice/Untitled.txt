@@ -1,0 +1,276 @@
+
+
+mysql> use julyaug;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| branch            |
+| country           |
+| department        |
+| emp               |
+| emplyoee          |
+| job               |
+| job_histry        |
+| jobs              |
+| room              |
+| stu               |
+| student           |
++-------------------+
+11 rows in set (0.08 sec)
+
+mysql> create database XZY;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> use xyz;
+ERROR 1049 (42000): Unknown database 'xyz'
+mysql> use XZY;
+Database changed
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| demo               |
+| fbs                |
+| hotel              |
+| information_schema |
+| julyaug            |
+| mysql              |
+| performance_schema |
+| practice           |
+| student            |
+| sys                |
+| xzy                |
++--------------------+
+11 rows in set (0.03 sec)
+
+mysql> create table xyz (
+    -> id int,name varchar(10),age int,gender char(1));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> desc table'
+    '> '
+    -> ';
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+'
+';
+'' at line 1
+mysql> desc table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> desc xyz;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> alter table XYZ
+    -> add primary key (id);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column gender varchar(10);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column age int check (age > 18);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column name varchar(10) not null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XYZ
+    -> modify column age int unique;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table XZY
+    -> modify column gender varchar(10) default "gender";
+ERROR 1146 (42S02): Table 'xzy.xzy' doesn't exist
+mysql> alter table XYZ
+    -> modify column gender varchar(10) default "gender";
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE table ABC(
+    -> eid int ,name,class);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',class)' at line 2
+mysql> CREATE table ABC(
+    -> eid int ,name varchar(10),class varchar(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table xyz
+    -> modify column id int auto_increment;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into (name,age,gender) values
+    -> (dipak,22,"M");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(name,age,gender) values
+(dipak,22,"M")' at line 1
+mysql> insert into (name,age,gender) values
+    -> ("dipak",22,"M");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(name,age,gender) values
+("dipak",22,"M")' at line 1
+mysql> insert into table XYZ(name,age,gender) values
+    -> ("dipak",22,"M");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table XYZ(name,age,gender) values
+("dipak",22,"M")' at line 1
+mysql> insert into XYZ(name,age,gender) values
+    -> ("dipak",22,"M");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc abc;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int         | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into abc (id ,name,class) value
+    -> (101,"siddeshwar","BCA");
+ERROR 1054 (42S22): Unknown column 'id' in 'field list'
+mysql> insert into abc (id ,name,class) value
+    -> desc abc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc abc' at line 2
+mysql> insert into abc (eid ,name,class) value
+    -> (101,"siddeshwar","BCA");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> table abc
+    -> ;
++------+------------+-------+
+| eid  | name       | class |
++------+------------+-------+
+|  101 | siddeshwar | BCA   |
++------+------------+-------+
+1 row in set (0.02 sec)
+
+mysql> table xyz;
++----+-------+------+--------+
+| id | name  | age  | gender |
++----+-------+------+--------+
+|  1 | dipak |   22 | M      |
++----+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> alter table xyz
+    -> add forieng key (id) referance abc (eid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (id) referance abc (eid)' at line 2
+mysql> alter table xyz
+    -> add forieng key (id) reference abc (eid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key (id) reference abc (eid)' at line 2
+mysql> alter table xyz
+    -> add foreign key (id) reference abc (eid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference abc (eid)' at line 2
+mysql> alter table xyz
+    -> add foreign key (id) references abc (eid);
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'xyz_ibfk_1' in the referenced table 'abc'
+mysql> alter table abc
+    -> add primary key (eid);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table xyz
+    -> add foreign key (id) references abc (eid);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`xzy`.`#sql-184c_17`, CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`))
+mysql> table xyz;
++----+-------+------+--------+
+| id | name  | age  | gender |
++----+-------+------+--------+
+|  1 | dipak |   22 | M      |
++----+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> delete from xyz where eid = 1;
+ERROR 1054 (42S22): Unknown column 'eid' in 'where clause'
+mysql> delete from xyz where id = 1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> alter table xyz
+    -> add foreign key (id) references abc (eid);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table xyz;
+ERROR 1050 (42S01): Table 'xyz' already exists
+mysql> show create table xyz;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                          |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| xyz   | CREATE TABLE `xyz` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  `age` int DEFAULT NULL,
+  `gender` varchar(10) DEFAULT 'gender',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `age` (`age`),
+  CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`),
+  CONSTRAINT `xyz_chk_1` CHECK ((`age` > 18))
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> show create table abc;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                               |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| abc   | CREATE TABLE `abc` (
+  `eid` int NOT NULL,
+  `name` varchar(10) DEFAULT NULL,
+  `class` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`eid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> inser into xyz (name,age) value
+    -> ("dipak",22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into xyz (name,age) value
+("dipak",22)' at line 1
+mysql> insert into xyz (name,age) value
+    -> ("dipak",22);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`xzy`.`xyz`, CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`))
+mysql> insert into xyz (name,age) value
+    -> ("dipak",22);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`xzy`.`xyz`, CONSTRAINT `xyz_ibfk_1` FOREIGN KEY (`id`) REFERENCES `abc` (`eid`))
+mysql> insert into abc (eid,name,age) value
+    -> (102,"dipak",22);
+ERROR 1054 (42S22): Unknown column 'age' in 'field list'
+mysql> insert into abc (eid,name,age) value
+    -> insert into abc (eid,name,age) value;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into abc (eid,name,age) value' at line 2
+mysql> insert into abc (eid,name) value
+    -> (102,"dipak");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> table xyz;
+Empty set (0.00 sec)
+
+mysql> table abc;
++-----+------------+-------+
+| eid | name       | class |
++-----+------------+-------+
+| 101 | siddeshwar | BCA   |
+| 102 | dipak      | NULL  |
++-----+------------+-------+
+2 rows in set (0.00 sec)
+
+mysql>

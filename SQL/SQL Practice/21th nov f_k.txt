@@ -1,0 +1,177 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use julyaug;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_julyaug |
++-------------------+
+| branch            |
+| country           |
+| department        |
+| emp               |
+| emplyoee          |
+| job               |
+| job_histry        |
+| jobs              |
+| room              |
+| stu               |
+| student           |
++-------------------+
+11 rows in set (0.05 sec)
+
+mysql> use practice;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| branch             |
+| customer           |
+| dept               |
+| emp                |
+| student            |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> table branch;
+Empty set (0.01 sec)
+
+mysql> table customer;
++------+-----------+----------+--------------+------+--------+---------------+
+| c_id | c_name    | address  | payment_mode | age  | gender | veg_or_nonveg |
++------+-----------+----------+--------------+------+--------+---------------+
+|  101 | Dipak     | Parbhani | Online       |   21 | M      | veg           |
+|  102 | Adinath   | parbhani | offline      |   22 | M      | nonveg        |
+|  103 | Aniket    | nanded   | offline      |   18 | M      | nonveg        |
+|  104 | Sanket    | pune     | online       |   23 | M      | NULL          |
+|  105 | suyog     | mumbai   | online       |   22 | M      | NULL          |
+|  106 | Siddeswar | s_nagar  | offline      |   23 | M      | NULL          |
++------+-----------+----------+--------------+------+--------+---------------+
+6 rows in set (0.01 sec)
+
+mysql> table dept;
+Empty set (0.02 sec)
+
+mysql> table emp;
+Empty set (0.01 sec)
+
+mysql> table student;
+Empty set (0.00 sec)
+
+mysql> desc customer;
++---------------+-------------+------+-----+----------+----------------+
+| Field         | Type        | Null | Key | Default  | Extra          |
++---------------+-------------+------+-----+----------+----------------+
+| c_id          | int         | NO   | PRI | NULL     | auto_increment |
+| c_name        | varchar(20) | NO   |     | NULL     |                |
+| address       | varchar(20) | YES  |     | NULL     |                |
+| payment_mode  | varchar(10) | YES  |     | pay_bill |                |
+| age           | int         | YES  |     | NULL     |                |
+| gender        | char(1)     | YES  |     | NULL     |                |
+| veg_or_nonveg | varchar(10) | YES  |     | NULL     |                |
++---------------+-------------+------+-----+----------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> create table order(
+    -> order_id int,
+    -> or_name varchar(10),
+    -> or_date date );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order(
+order_id int,
+or_name varchar(10),
+or_date date )' at line 1
+mysql> create table order (
+    -> order_id int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (
+order_id int)' at line 1
+mysql> create table country(
+    ->     -> country_id int(11),
+    ->     -> country_name varchar(20),
+    ->     -> countryname varchar(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> country_id int(11),
+    -> country_name varchar(20),
+    -> countryname varch' at line 2
+mysql> create table order (
+    -> order_id int,
+    -> order_name varchar(10),
+    -> order_date date );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (
+order_id int,
+order_name varchar(10),
+order_date date )' at line 1
+mysql> create table order (
+    -> order_id int(10),
+    -> order_name varchar(10),
+    -> order_date date );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (
+order_id int(10),
+order_name varchar(10),
+order_date date )' at line 1
+mysql> create table order1 (
+    -> order_id int(10),
+    -> order_name varchar(10),
+    -> order_date date );
+Query OK, 0 rows affected, 1 warning (0.12 sec)
+
+mysql> table order1;
+Empty set (0.04 sec)
+
+mysql> desc order1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| order_id   | int         | YES  |     | NULL    |       |
+| order_name | varchar(10) | YES  |     | NULL    |       |
+| order_date | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into order1 (order_id,order_name,order_date) values
+    -> (101,"pizza","2025-11-9"),
+    -> (102,"burger","2025-10-10"),
+    -> (103,"coffe","2025-11-10");
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table order1;
++----------+------------+------------+
+| order_id | order_name | order_date |
++----------+------------+------------+
+|      101 | pizza      | 2025-11-09 |
+|      102 | burger     | 2025-10-10 |
+|      103 | coffe      | 2025-11-10 |
++----------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> desc customer;
++---------------+-------------+------+-----+----------+----------------+
+| Field         | Type        | Null | Key | Default  | Extra          |
++---------------+-------------+------+-----+----------+----------------+
+| c_id          | int         | NO   | PRI | NULL     | auto_increment |
+| c_name        | varchar(20) | NO   |     | NULL     |                |
+| address       | varchar(20) | YES  |     | NULL     |                |
+| payment_mode  | varchar(10) | YES  |     | pay_bill |                |
+| age           | int         | YES  |     | NULL     |                |
+| gender        | char(1)     | YES  |     | NULL     |                |
+| veg_or_nonveg | varchar(10) | YES  |     | NULL     |                |
++---------------+-------------+------+-----+----------+----------------+
+7 rows in set (0.05 sec)
+
+mysql> alter table order1
+    -> add primary key (order_id);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>

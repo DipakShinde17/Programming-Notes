@@ -1,0 +1,134 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 63
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database practice;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> use practice;
+Database changed
+mysql> create table student(
+    -> roolno int,name varchar(15),class varchar(10),age int,percentage float(5,2));
+Query OK, 0 rows affected, 1 warning (0.12 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.03 sec)
+
+mysql> alter table student
+    -> add colum address varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address varchar(20)' at line 2
+mysql> alter table student
+    -> add column address varchar(20);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> alter table student
+    -> modify column percentage int;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| address    | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add column email varchar(20)
+    -> first
+    -> ;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student
+    -> add column gender after age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after age' at line 2
+mysql> add column gender char(1)
+    -> after age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add column gender char(1)
+after age' at line 1
+mysql> alter table student
+    -> add column gender char(1)
+    -> after age;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student
+    -> change column address city char(20);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc student
+    -> ;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email      | varchar(20) | YES  |     | NULL    |       |
+| roolno     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> drop column email;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql>

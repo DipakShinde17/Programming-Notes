@@ -1,0 +1,113 @@
+password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use practice;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| branch             |
+| student            |
++--------------------+
+2 rows in set (0.01 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
+| mark       | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> alter table student
+    -> add primary key (roolno);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | NO   | PRI | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| class      | varchar(10) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
+| mark       | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify column name  varchar(15) not null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student
+    -> modify column class varchar(20) default 'bca';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student
+    -> modify column age int check (age>0);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roolno     | int         | NO   | PRI | NULL    |       |
+| name       | varchar(15) | NO   |     | NULL    |       |
+| class      | varchar(20) | YES  |     | bca     |       |
+| age        | int         | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| city       | char(20)    | YES  |     | NULL    |       |
+| mark       | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.03 sec)
+
+mysql> show create table student;
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                               |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| student | CREATE TABLE `student` (
+  `roolno` int NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `class` varchar(20) DEFAULT 'bca',
+  `age` int DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `percentage` int DEFAULT NULL,
+  `city` char(20) DEFAULT NULL,
+  `mark` int DEFAULT NULL,
+  PRIMARY KEY (`roolno`),
+  CONSTRAINT `student_chk_1` CHECK ((`age` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.03 sec)
+
+mysql>  show table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> show student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql>
